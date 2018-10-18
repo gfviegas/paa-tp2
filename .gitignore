@@ -50,3 +50,14 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+# Ignore Finder spam
+\.DS_store
+
+# Ignore cruft in the project bundle
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+
+# Ignore build products folder
+build/

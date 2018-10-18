@@ -7,9 +7,14 @@
 //
 
 #include <stdio.h>
+#include "wordHunt/wordHunt.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+    char **matrix = NULL;
+    int lines, columns;
+    
+    loadMatrix(&matrix, &lines, &columns);
+    printMatrix(matrix, lines, columns);
+
     return 0;
 }
