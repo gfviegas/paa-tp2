@@ -8,13 +8,16 @@
 
 #include <stdio.h>
 #include "wordHunt/wordHunt.h"
+#include "sudoku/sudoku.h"
 
 int main(int argc, const char * argv[]) {
     char **matrix = NULL;
+    int **sudoku = NULL;
     int lines, columns;
-    
-    loadMatrix(&matrix, &lines, &columns);
-    printMatrix(matrix, lines, columns);
 
+    //loadMatrix(&matrix, &lines, &columns);
+    //printMatrix(matrix, lines, columns);
+    loadSudoku(&sudoku);
+    printSudoku(sudoku);
     return 0;
 }
