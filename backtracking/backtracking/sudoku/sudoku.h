@@ -12,3 +12,5 @@ void printSudoku(int **matrix);
 void solveSudoku(int **matrix);
 
 int checaVetor(int *vetor);
+
+int isSudokuResolvido(int **matrix);

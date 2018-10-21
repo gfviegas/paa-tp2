@@ -19,5 +19,9 @@ int main(int argc, const char * argv[]) {
     //printMatrix(matrix, lines, columns);
     loadSudoku(&sudoku);
     printSudoku(sudoku);
+    if(isSudokuResolvido(sudoku))
+        printf("Sudoku solucionado !");
+    else
+        printf("FRACASSADO!!!!");
     return 0;
 }
