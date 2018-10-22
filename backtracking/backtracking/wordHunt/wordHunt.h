@@ -13,10 +13,19 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "solution.h"
 #include "../util/fileReader.h"
 #include "../util/logger.h"
 
-void loadMatrix(char ***matrix, int *matrixLines, int *matrixColumns);
-void printMatrix(char **matrix, int lines, int columns);
+typedef enum Movements {
+    NONE,
+    LEFT,
+    RIGHT,
+    BOTTOM
+} Movements;
 
+void loadMatrix(char ***matrix, int *matrixLines, int *matrixColumns);
+void printMatrix(char ***matrix, int lines, int columns);
+int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int columnIdx, char* word, int wordIdx, SolutionNode solution, int wordLen, char ***resultMatrix, Movements lastMovement);
+void search(char ***matrix, char *word, int lines, int columns);
 #endif /* wordHunt_h */

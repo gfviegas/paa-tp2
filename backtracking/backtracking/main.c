@@ -14,7 +14,8 @@ int main(int argc, const char * argv[]) {
     int lines, columns;
     
     loadMatrix(&matrix, &lines, &columns);
-    printMatrix(matrix, lines, columns);
+    printMatrix(&matrix, lines, columns);
+    search(&matrix, "casa", lines, columns);
 
     return 0;
 }
