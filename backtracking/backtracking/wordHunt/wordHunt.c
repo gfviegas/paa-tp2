@@ -77,46 +77,59 @@ int checkMatch(char ***matrix, char query, int line, int column) {
 }
 
 int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement) {
+    Movements i;
     
+    // Acabou se estou procurando a n-esima + 1 letra da palavra
     if (wordIdx == wordLen) return 1;
-    if (lineIdx < 0 || columnIdx < 0 || lineIdx >= linesAmt || columnIdx >= columnsAmt) return 0;
     
     char query = word[wordIdx];
-    if (checkMatch(matrix, query, lineIdx, columnIdx)) {
-        wordIdx++;
-        (*resultMatrix)[lineIdx][columnIdx] = query;
+    
+    // Se os indices de procura nao estao na matriz, entao é sem-esperança.
+    if (lineIdx < 0 || columnIdx < 0 || lineIdx >= linesAmt || columnIdx >= columnsAmt) return 0;
+    // Se estou em uma posição cuja letra procurada nao está presente, não adianta continuar.
+    if (!checkMatch(matrix, query, lineIdx, columnIdx)) return 0;
+    
+    // Incrementa o indice pra procurar a próxima letra.
+    wordIdx++;
+    // Para cada direção, se procura a próxima letra.
+    for (i = LEFT; i <= BOTTOM; i++) {
+        if (i == lastMovement) continue;
+        if ((i == LEFT || i == RIGHT) & (lastMovement == LEFT || lastMovement == RIGHT)) continue;
+        
+        int nextLine = (i == BOTTOM) ? lineIdx + 1 : lineIdx;
+        int nextColumn = (i == LEFT) ? columnIdx - 1 : (i == RIGHT) ? columnIdx + 1 : columnIdx;
+        
+        if (backtracking(matrix, linesAmt, columnsAmt, nextLine, nextColumn, word, wordIdx, wordLen, resultMatrix, i)) {
+            (*resultMatrix)[lineIdx][columnIdx] = query;
+            return 1;
+        }
+
+        (*resultMatrix)[lineIdx][columnIdx] = '*';
     }
     
-    
-    int downCall = (lastMovement != BOTTOM) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx + 1, columnIdx, word, wordIdx, wordLen, resultMatrix, BOTTOM) : 0;
-    int leftCall = (lastMovement == BOTTOM || lastMovement == NONE) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx, columnIdx - 1, word, wordIdx, wordLen, resultMatrix, LEFT) : 0;
-    int rightCall = (lastMovement == BOTTOM || lastMovement == NONE) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx, columnIdx + 1, word, wordIdx, wordLen, resultMatrix, RIGHT) : 0;
-    
-    int result = (rightCall || downCall || leftCall);
-    if (!result) (*resultMatrix)[lineIdx][columnIdx] = '*';
-    
-    return result;
+    return 0;
 }
 
 void search(char ***matrix, char *word, int lines, int columns) {
+    int results = 0;
     int wordLen = (int)(strlen(word));
-//    int i, j;
-    
     char **resultMatrix;
     createMatrix(&resultMatrix, lines, columns);
     fillMatrix(&resultMatrix, lines, columns);
-    int result = 0;
-//
-//    for (i = 0; i < lines; i++) {
-//        for (j = 0; j < columns; j++) {
-//            if ((*matrix)[i][j] == word[0]) {
-//                resultMatrix[i][j] = word[0];
-//                result += backtracking(matrix, lines, columns, i, j, word, 1, wordLen, &resultMatrix, NONE);
-//            }
-//        }
-//    }
     
-    if (backtracking(matrix, lines, columns, 0, 0, word, 0, wordLen, &resultMatrix, NONE))
+    for (int i = 0; i < lines; i++) {
+        for (int j = 0; j < columns; j++) {
+            if ((*matrix)[i][j] == word[0] && backtracking(matrix, lines, columns, i, j, word, 0, wordLen, &resultMatrix, NONE)) results++;
+        }
+    }
+  
+//    char msg[100];
+//    sprintf(msg, "Foram encontradas %d ocorrências", results);
+//    logInfo(msg);
+//    free(msg);
+    
+    printf("Foram encontradas %d ocorrências\n", results);
+    if (results > 0)
         printMatrix(&resultMatrix, lines, columns);
     else
         logError("Não foi encontrada a palavra");
