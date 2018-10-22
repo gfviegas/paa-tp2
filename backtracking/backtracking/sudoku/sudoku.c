@@ -27,9 +27,9 @@ void printSudoku(int **matrix){
     for(i = 0; i < TAM_SUDOKU; i++){
         for(j = 0; j < TAM_SUDOKU; j++){
             if(matrix[i][j] == 0)
-                printf(" ");
+                printf("0");
             else
-                printf("%d ", matrix[i][j]);
+                printf("%d", matrix[i][j]);
         }
         printf("\n");
     }
@@ -44,9 +44,8 @@ int checaVetor(int *vetor){
             }
         }
     }
-    for(i = 0; i < TAM_SUDOKU; i++){x''
+    for(i = 0; i < TAM_SUDOKU; i++)
         som += vetor[i];
-    }
     if(som != SUM_CHECK)
         condSoma = 0;
     return (condDuplicata & condSoma);
@@ -86,28 +85,53 @@ int isSudokuResolvido(int **matrix){
 }
 
 void solveSudoku(int **matrix){
-
+    if(backTracking(matrix, 0))
+        printf("SUDOKU RESOLVIDO!\n\n");
+    else
+        printf("EH, PRECISA MELHORAR O CÓDIGO AE!\n");
 }
 
-int backTracking(int **matrix, int lineIndex, int columnIndex, int try){
-    if(isSudokuResolvido)
+int backTracking(int **matrix, int index){
+    int tenta;
+    int i = index / TAM_SUDOKU;
+    int j = index % TAM_SUDOKU;
+    if(isSudokuResolvido(matrix))
         return 1;
-    for(i=lineIndex; i<TAM_SUDOKU; i++){
-        for(j=0; j<TAM_SUDOKU; j++){
-            while(1){
-                if(canBeTry){
-                    if(backTracking(matrix, lineIndex, columnIndex, try)){
+
+    if(matrix[i][j] == 0){
+        for(tenta = 1; tenta <= 9; tenta++){
+            printf("estou tentando colocar o numero %d no indice %d-%d\n\n", tenta, i , j);
+            if(canBeTry(matrix, i, j, tenta)){
+                    matrix[i][j] = tenta;
+                    if(backTracking(matrix, index + 1))
                         return 1;
-                    }
-                    else{
-                        try = 0;
-                    }
-                }
-                try++;
-                if(try == TAM_SUDOKU + 1)
-                    return 0;
+                    else
+                        matrix[i][j] = 0;
             }
         }
     }
+    else if(backTracking(matrix, index+1))
+        return 1;
+    else
+        return 0;
     return 0;
+}
+
+
+int canBeTry(int **matrix, int lineIndex, int columnIndex, int tenta){
+    int i,j;
+    int boxIndexLine = lineIndex / 3;
+    int boxIndexColumn = columnIndex / 3;
+    if(matrix[lineIndex][columnIndex] != 0)
+        return 1;
+    for(i=0; i<TAM_SUDOKU; i++)
+        if(matrix [lineIndex][i] == tenta || matrix[i][columnIndex] == tenta)
+            return 0;
+    for(i=0;i<TAM_SUDOKU/3;i++){
+        for(j=0;j<TAM_SUDOKU/3;j++){
+            if(matrix [i + (3*boxIndexLine)] [j + (3*boxIndexColumn)] == tenta)
+                return 0;
+        }
+    }
+    return 1;
 }
