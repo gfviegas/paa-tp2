@@ -14,20 +14,18 @@ void promptFilePath(char* filePath) {
     scanf("%s", filePath);
 }
 
-void openFile(FILE** file) {
-    char filePath[FILE_PATH_BUFFER_SIZE];
-    promptFilePath(filePath);
-    
+void openFile(FILE** file, char *filePath) {;
+
     *file = fopen(filePath, "r");
-    
+
     if (*file == NULL) {
         char message[300];
         sprintf(message, "O arquivo %s não existe ou não pode ser lido corretamente.\n Confira o caminho inserido e digite outro.", filePath);
         logError(message);
-        return openFile(file);
+        return openFile(file, filePath);
     }
-    
-    logInfo("Arquivo carregado com sucesso.");
+
+    //logInfo("Arquivo carregado com sucesso.");
 }
 
 void readLine(FILE* file, char* buffer) {

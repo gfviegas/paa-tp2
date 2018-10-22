@@ -28,5 +28,4 @@ void logWarning(char* message);
 
 void logError(char* message);
 
-
 #endif /* logger_h */

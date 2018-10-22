@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "wordHunt/wordHunt.h"
 #include "sudoku/sudoku.h"
+#include "util/interface.h"
 
 int main(int argc, const char * argv[]) {
     char **matrix = NULL;
@@ -17,10 +18,7 @@ int main(int argc, const char * argv[]) {
 
     //loadMatrix(&matrix, &lines, &columns);
     //printMatrix(matrix, lines, columns);
-    loadSudoku(&sudoku);
-    printSudoku(sudoku);
-    solveSudoku(sudoku);
-    printSudoku(sudoku);
-    
+    printHeader();
+
     return 0;
 }

@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-void loadSudoku(int ***matrix){
+void loadSudoku(int ***matrix, char* filePath){
     *matrix = (int **) malloc(TAM_SUDOKU* TAM_SUDOKU * sizeof(int));
     int i = 0, j = 0;
     char currentLine[FILE_BUFFER_SIZE];
     FILE *file = NULL;
-    openFile(&file);
+    openFile(&file, filePath);
     for(i = 0;i < TAM_SUDOKU;i++){
 
         j = 0;
@@ -20,6 +20,18 @@ void loadSudoku(int ***matrix){
         }
     }
     fclose(file);
+}
+
+void readSudoku(int ***matrix){
+    *matrix = (int **) malloc(TAM_SUDOKU* TAM_SUDOKU * sizeof(int));
+    int i, j;
+    printf("Você irá escrever o seu sudoku, quando o quadrado for vazio coloque 0\n\n");
+    for(i=0;i<TAM_SUDOKU;i++){
+        printf("Digite a linha número %d do seu sudoku", i);
+        for(j=0;j<TAM_SUDOKU;j++){
+            scanf("%d", matrix[i][j]);
+        }
+    }
 }
 
 void printSudoku(int **matrix){
@@ -88,7 +100,7 @@ void solveSudoku(int **matrix){
     if(backTracking(matrix, 0))
         printf("SUDOKU RESOLVIDO!\n\n");
     else
-        printf("EH, PRECISA MELHORAR O CÓDIGO AE!\n");
+        printf("SUDOKU N TEM SOLUÇÃO\n");
 }
 
 int backTracking(int **matrix, int index){
@@ -97,10 +109,10 @@ int backTracking(int **matrix, int index){
     int j = index % TAM_SUDOKU;
     if(isSudokuResolvido(matrix))
         return 1;
-
+    if(index > TAM_SUDOKU*TAM_SUDOKU)
+        return 0;
     if(matrix[i][j] == 0){
         for(tenta = 1; tenta <= 9; tenta++){
-            printf("estou tentando colocar o numero %d no indice %d-%d\n\n", tenta, i , j);
             if(canBeTry(matrix, i, j, tenta)){
                     matrix[i][j] = tenta;
                     if(backTracking(matrix, index + 1))

@@ -17,7 +17,7 @@
 
 void promptFilePath(char* filePath);
 
-void openFile(FILE** file);
+void openFile(FILE** file, char* filePath);
 
 void readLine(FILE* file, char* buffer);
 

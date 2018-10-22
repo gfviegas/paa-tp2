@@ -5,7 +5,7 @@
 #define TAM_SUDOKU 9
 #define SUM_CHECK 45
 #define CONVERSOR_ASCII 48
-void loadSudoku(int ***matrix);
+void loadSudoku(int ***matrix, char* filePath);
 
 void printSudoku(int **matrix);
 
@@ -18,3 +18,5 @@ int isSudokuResolvido(int **matrix);
 int backTracking(int **matrix, int index);
 
 int canBeTry(int **matrix, int lineIndex, int columnIndex, int tenta);
+
+void readSudoku(int ***matrix);
