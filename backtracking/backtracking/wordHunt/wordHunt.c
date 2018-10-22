@@ -73,59 +73,51 @@ int checkMatch(char ***matrix, char query, int line, int column) {
     if (matrix == NULL) return 0;
 
     char matrixValue = (*matrix)[line][column];
-    return (line > 0 && column > 0 && (query == matrixValue));
+    return (line >= 0 && column >= 0 && (query == matrixValue));
 }
 
-int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int columnIdx, char* word, int wordIdx, SolutionNode solution, int wordLen, char ***resultMatrix, Movements lastMovement) {
-
-    if (wordIdx == wordLen) {
-//        printSolution(&solution);
-        insertInResult(matrix, resultMatrix, &solution);
-        return 1;
-    }
-
+int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement) {
+    
+    if (wordIdx == wordLen) return 1;
+    if (lineIdx < 0 || columnIdx < 0 || lineIdx >= linesAmt || columnIdx >= columnsAmt) return 0;
+    
     char query = word[wordIdx];
-
-    if (lineIdx < 0 || columnIdx < 0) return 0;
-    if (lineIdx >= linesAmt || columnIdx >= columnsAmt) return 0;
-
-    SolutionNodePointer lastNode = getLast(&solution);
-    if (lineIdx > (lastNode->line + 1) || columnIdx > (lastNode->column + 1)) return 0;
-
     if (checkMatch(matrix, query, lineIdx, columnIdx)) {
         wordIdx++;
-        insertSolution(&solution, lineIdx, columnIdx);
+        (*resultMatrix)[lineIdx][columnIdx] = query;
     }
-
-    int downCall, rightCall, leftCall;
     
-    downCall = (lastMovement != BOTTOM) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx + 1, columnIdx, word, wordIdx, solution, wordLen, resultMatrix, BOTTOM) : 1;
-    leftCall = (lastMovement != LEFT && lastMovement != RIGHT) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx, columnIdx - 1, word, wordIdx, solution, wordLen, resultMatrix, LEFT) : 1;
-    rightCall = (lastMovement != LEFT && lastMovement != RIGHT) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx, columnIdx + 1, word, wordIdx, solution, wordLen, resultMatrix, RIGHT) : 1;
     
-    return (rightCall || downCall || leftCall);
+    int downCall = (lastMovement != BOTTOM) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx + 1, columnIdx, word, wordIdx, wordLen, resultMatrix, BOTTOM) : 0;
+    int leftCall = (lastMovement == BOTTOM || lastMovement == NONE) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx, columnIdx - 1, word, wordIdx, wordLen, resultMatrix, LEFT) : 0;
+    int rightCall = (lastMovement == BOTTOM || lastMovement == NONE) ? backtracking(matrix, linesAmt, columnsAmt, lineIdx, columnIdx + 1, word, wordIdx, wordLen, resultMatrix, RIGHT) : 0;
+    
+    int result = (rightCall || downCall || leftCall);
+    if (!result) (*resultMatrix)[lineIdx][columnIdx] = '*';
+    
+    return result;
 }
 
 void search(char ***matrix, char *word, int lines, int columns) {
-    int i, j;
-    char firstLetter = word[0];
     int wordLen = (int)(strlen(word));
-
+//    int i, j;
+    
     char **resultMatrix;
     createMatrix(&resultMatrix, lines, columns);
     fillMatrix(&resultMatrix, lines, columns);
-
-    // Percorre a matriz procurando a primeira letra da palavra buscada
-    for (i = 0; i < lines; i++) {
-        for (j = 0; j < columns; j++) {
-            if ((*matrix)[i][j] == firstLetter) {
-                SolutionNode solution;
-                createNode(&solution, i, j);
-
-                backtracking(matrix, lines, columns, i, j, word, 1, solution, wordLen, &resultMatrix, NONE);
-            }
-        }
-    }
-
-    printMatrix(&resultMatrix, lines, columns);
+    int result = 0;
+//
+//    for (i = 0; i < lines; i++) {
+//        for (j = 0; j < columns; j++) {
+//            if ((*matrix)[i][j] == word[0]) {
+//                resultMatrix[i][j] = word[0];
+//                result += backtracking(matrix, lines, columns, i, j, word, 1, wordLen, &resultMatrix, NONE);
+//            }
+//        }
+//    }
+    
+    if (backtracking(matrix, lines, columns, 0, 0, word, 0, wordLen, &resultMatrix, NONE))
+        printMatrix(&resultMatrix, lines, columns);
+    else
+        logError("Não foi encontrada a palavra");
 }
