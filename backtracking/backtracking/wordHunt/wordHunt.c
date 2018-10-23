@@ -61,17 +61,6 @@ void printMatrix(char ***matrix, int lines, int columns) {
     printf("\n");
 }
 
-void insertInResult(char ***matrix, char ***resultMatrix, SolutionNodePointer solution) {
-    SolutionNodePointer aux = solution;
-
-    while (aux != NULL) {
-        char foundLetter = (*matrix)[aux->line][aux->column];
-        (*resultMatrix)[aux->line][aux->column] = foundLetter;
-
-        aux = aux->next;
-    }
-}
-
 int checkMatch(char ***matrix, char query, int line, int column) {
     if (matrix == NULL) return 0;
 

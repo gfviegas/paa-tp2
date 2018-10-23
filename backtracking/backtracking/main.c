@@ -7,10 +7,9 @@
 //
 #define MODO_ANALISE 1
 #define MODO_NORMAL 0
+
 #include <stdio.h>
 #include <string.h>
-#include "wordHunt/wordHunt.h"
-#include "sudoku/sudoku.h"
 #include "util/interface.h"
 
 int main(int argc, const char * argv[]) {

@@ -1,9 +1,4 @@
 #include "interface.h"
-#include "logger.h"
-#include "../sudoku/sudoku.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 void printLinha(){
     int i;
@@ -34,10 +29,10 @@ void printMenuInicial(int modo){
     scanf("%d", &escolha);
     switch (escolha) {
         case 1:
-            //MenuCacaPalavra();
+            _wordHuntMenu(modo);
             break;
         case 2:
-            MenuSudoku();
+            MenuSudoku(modo);
             break;
         default:
             printf("\n\n * Digite apenas 1 ou 2, ainda não temos tantos quebra-cabeças :(\n");

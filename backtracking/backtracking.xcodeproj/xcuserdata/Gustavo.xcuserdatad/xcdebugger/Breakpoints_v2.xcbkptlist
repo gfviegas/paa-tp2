@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "backtracking/wordHunt/wordHunt.c"
-            timestampString = "561995883.512345"
+            timestampString = "562029719.185007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "backtracking"
             landmarkType = "9">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "backtracking/wordHunt/wordHunt.c"
-            timestampString = "561995883.51351"
+            timestampString = "562029719.18542"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "checkMatch"
             landmarkType = "9">
          </BreakpointContent>
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "backtracking/wordHunt/wordHunt.c"
-            timestampString = "561995883.514273"
+            timestampString = "562029719.185515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "backtracking/wordHunt/wordHunt.c"
-            timestampString = "561995883.514944"
+            timestampString = "562029719.185606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "backtracking"
             landmarkType = "9">
          </BreakpointContent>

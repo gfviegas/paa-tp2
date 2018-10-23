@@ -2,13 +2,21 @@
 #define interface_h
 #define LINE_SIZE 60
 
-void printLinha();
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "logger.h"
+#include "../sudoku/sudoku.h"
+#include "../wordHunt/interface.h"
+
+void printLinha(void);
 
 void printHeader(int modo);
 
 void printMenuInicial(int modo);
 
-void MenuSudoku();
+void MenuSudoku(int modo);
 
 void printAllSudoku(int ***matrix);
 

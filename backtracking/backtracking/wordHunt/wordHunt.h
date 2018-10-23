@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "solution.h"
 #include "../util/fileReader.h"
 #include "../util/logger.h"
 
