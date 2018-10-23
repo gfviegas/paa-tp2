@@ -40,12 +40,25 @@ void printSudoku(int **matrix){
     int i, j;
     for(i = 0; i < TAM_SUDOKU; i++){
         for(j = 0; j < TAM_SUDOKU; j++){
-            if(matrix[i][j] == 0)
-                printf("0");
+            if( j == 2 || j == 5 || j == 8)
+                if(matrix[i][j] == 0)
+                    printf(" |");
+                else
+                    printf("%d|", matrix[i][j]);
             else
-                printf("%d", matrix[i][j]);
+                if(matrix[i][j] == 0)
+                    printf("  ");
+                else
+                    printf("%d ", matrix[i][j]);
+
         }
         printf("\n");
+        if(i == 2 || i == 5){
+            for(j=0; j < (TAM_SUDOKU * 2); j++){
+                printf("-");
+            }
+            printf("\n");
+        }
     }
 }
 int isSudokuResolvido(int **matrix){
