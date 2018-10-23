@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC2B3CFB217E0AB00084FFFB /* solution.c in Sources */ = {isa = PBXBuildFile; fileRef = EC2B3CFA217E0AB00084FFFB /* solution.c */; };
 		EC581DB921780A5900B6F697 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = EC581DB821780A5900B6F697 /* main.c */; };
 		EC581DC921780B0200B6F697 /* wordHunt.c in Sources */ = {isa = PBXBuildFile; fileRef = EC581DC721780B0200B6F697 /* wordHunt.c */; };
 		EC581DCE21780B0700B6F697 /* logger.c in Sources */ = {isa = PBXBuildFile; fileRef = EC581DCC21780B0700B6F697 /* logger.c */; };
@@ -26,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC2B3CF9217E0AB00084FFFB /* solution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solution.h; sourceTree = "<group>"; };
+		EC2B3CFA217E0AB00084FFFB /* solution.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = solution.c; sourceTree = "<group>"; };
 		EC581DB521780A5900B6F697 /* backtracking */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = backtracking; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC581DB821780A5900B6F697 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		EC581DC121780A8D00B6F697 /* palavras.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = palavras.txt; sourceTree = "<group>"; };
@@ -91,6 +94,8 @@
 			children = (
 				EC581DC721780B0200B6F697 /* wordHunt.c */,
 				EC581DC821780B0200B6F697 /* wordHunt.h */,
+				EC2B3CF9217E0AB00084FFFB /* solution.h */,
+				EC2B3CFA217E0AB00084FFFB /* solution.c */,
 			);
 			path = wordHunt;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC2B3CFB217E0AB00084FFFB /* solution.c in Sources */,
 				EC581DCF21780B0700B6F697 /* fileReader.c in Sources */,
 				EC581DC921780B0200B6F697 /* wordHunt.c in Sources */,
 				EC581DCE21780B0700B6F697 /* logger.c in Sources */,
