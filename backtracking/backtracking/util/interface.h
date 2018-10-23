@@ -4,9 +4,13 @@
 
 void printLinha();
 
-void printHeader();
+void printHeader(int modo);
 
-void printMenuInicial();
+void printMenuInicial(int modo);
 
 void MenuSudoku();
+
+void printAllSudoku(int ***matrix);
+
+void showResult(int ***matrix, int modo);
 #endif

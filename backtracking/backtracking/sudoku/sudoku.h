@@ -9,13 +9,11 @@ void loadSudoku(int ***matrix, char* filePath);
 
 void printSudoku(int **matrix);
 
-void solveSudoku(int **matrix);
-
-int checaVetor(int *vetor);
+int solveSudoku(int **matrix, int *numTentativas);
 
 int isSudokuResolvido(int **matrix);
 
-int backTracking(int **matrix, int index);
+int backTracking(int **matrix, int index, int *numTentativas);
 
 int canBeTry(int **matrix, int lineIndex, int columnIndex, int tenta);
 

@@ -5,20 +5,19 @@
 //  Created by Gustavo Viegas on 16/10/18.
 //  Copyright © 2018 UFV Florestal. All rights reserved.
 //
-
+#define MODO_ANALISE 1
+#define MODO_NORMAL 0
 #include <stdio.h>
+#include <string.h>
 #include "wordHunt/wordHunt.h"
 #include "sudoku/sudoku.h"
 #include "util/interface.h"
 
 int main(int argc, const char * argv[]) {
-    char **matrix = NULL;
-    int **sudoku = NULL;
-    int lines, columns;
-
-    //loadMatrix(&matrix, &lines, &columns);
-    //printMatrix(matrix, lines, columns);
-    printHeader();
-
+    // if(strcpy("analise", argv[1]) == 0)
+    //     printHeader(MODO_ANALISE);
+    // else
+    //     printHeader(MODO_NORMAL);
+    printHeader(MODO_NORMAL);
     return 0;
 }

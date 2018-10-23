@@ -24,12 +24,14 @@ void loadSudoku(int ***matrix, char* filePath){
 
 void readSudoku(int ***matrix){
     *matrix = (int **) malloc(TAM_SUDOKU* TAM_SUDOKU * sizeof(int));
-    int i, j;
-    printf("Você irá escrever o seu sudoku, quando o quadrado for vazio coloque 0\n\n");
+    int i, j, num;
+    printf("Você irá escrever o seu sudoku, quando o quadrado for vazio coloque 0--\n\n");
     for(i=0;i<TAM_SUDOKU;i++){
-        printf("Digite a linha número %d do seu sudoku", i);
+        (*matrix)[i] = (int *) malloc(TAM_SUDOKU * sizeof(int));
+        printf("Digite a linha número %d do seu sudoku:\n", i+1);
         for(j=0;j<TAM_SUDOKU;j++){
-            scanf("%d", matrix[i][j]);
+            scanf("%d", &num);
+            (*matrix)[i][j] = num;
         }
     }
 }
@@ -46,83 +48,44 @@ void printSudoku(int **matrix){
         printf("\n");
     }
 }
-int checaVetor(int *vetor){
-    int i, j, som = 0, condSoma = 1, condDuplicata = 1;
-    for(i = 0; i < TAM_SUDOKU - 1; i++){
-        for(j = i + 1; j < TAM_SUDOKU; j++){
-            if(vetor[i] == vetor[j]){
-                condDuplicata = 0;
-                break;
-            }
-        }
-    }
-    for(i = 0; i < TAM_SUDOKU; i++)
-        som += vetor[i];
-    if(som != SUM_CHECK)
-        condSoma = 0;
-    return (condDuplicata & condSoma);
-}
-
 int isSudokuResolvido(int **matrix){
-    int i, j, k, l, line[TAM_SUDOKU], column[TAM_SUDOKU], box[TAM_SUDOKU], cond = 1, indice = 0;
+    int i, j;
     for(i = 0; i < TAM_SUDOKU; i++){
-        if(cond == 0)
-            return cond;
-        for(j = 0; j < TAM_SUDOKU; j++){
-            line[j] = matrix[i][j];
-            for(k=0; k<TAM_SUDOKU; k++){
-                column[k] = matrix [k][j];
-            }
-            cond = (cond & checaVetor(column));
-            if(!cond)
-                return cond;
-        }
-        cond = (cond & checaVetor(line));
-    }
-    for(i=0;i<TAM_SUDOKU/3;i++){
-        for(j=0;j<TAM_SUDOKU/3;j++){
-            for(k=0;k<TAM_SUDOKU/3;k++){
-                for(l=0;l<TAM_SUDOKU/3;l++){
-                    box[indice] = matrix[k + (3 * i)] [l + (3 * j)];
-                    indice++;
-                }
-            }
-            indice = 0;
-            cond = (cond & checaVetor(box));
-            if(!cond)
-                return cond;
+        for(j=0; j < TAM_SUDOKU; j++){
+            if(matrix[i][j] == 0)
+                return 0;
         }
     }
-    return cond;
+    return 1;
 }
 
-void solveSudoku(int **matrix){
-    if(backTracking(matrix, 0))
-        printf("SUDOKU RESOLVIDO!\n\n");
-    else
-        printf("SUDOKU N TEM SOLUÇÃO\n");
+int solveSudoku(int **matrix, int *numTentativas){
+    return(backTracking(matrix, 0, numTentativas));
 }
 
-int backTracking(int **matrix, int index){
+int backTracking(int **matrix, int index, int *numTentativas){
+    (*numTentativas)++;
     int tenta;
     int i = index / TAM_SUDOKU;
     int j = index % TAM_SUDOKU;
     if(isSudokuResolvido(matrix))
         return 1;
+    if(index == TAM_SUDOKU*TAM_SUDOKU + 1)
+        return 0;
     if(index > TAM_SUDOKU*TAM_SUDOKU)
         return 0;
     if(matrix[i][j] == 0){
         for(tenta = 1; tenta <= 9; tenta++){
             if(canBeTry(matrix, i, j, tenta)){
                     matrix[i][j] = tenta;
-                    if(backTracking(matrix, index + 1))
+                    if(backTracking(matrix, index + 1, numTentativas))
                         return 1;
                     else
                         matrix[i][j] = 0;
             }
         }
     }
-    else if(backTracking(matrix, index+1))
+    else if(backTracking(matrix, index+1, numTentativas))
         return 1;
     else
         return 0;
