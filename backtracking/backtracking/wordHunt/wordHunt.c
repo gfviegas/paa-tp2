@@ -30,8 +30,10 @@ void loadMatrix(char ***matrix, int *matrixLines, int *matrixColumns) {
 
     char currentLine[FILE_BUFFER_SIZE];
     FILE *file = NULL;
+    char fileName[FILE_BUFFER_SIZE];
 
-    openFile(&file);
+    promptFilePath(fileName);
+    openFile(&file, fileName);
 
     fscanf(file, "%d %d\n", matrixLines, matrixColumns);
 

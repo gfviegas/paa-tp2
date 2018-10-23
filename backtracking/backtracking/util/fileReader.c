@@ -14,8 +14,7 @@ void promptFilePath(char* filePath) {
     scanf("%s", filePath);
 }
 
-void openFile(FILE** file, char *filePath) {;
-
+void openFile(FILE** file, char *filePath) {
     *file = fopen(filePath, "r");
 
     if (*file == NULL) {
