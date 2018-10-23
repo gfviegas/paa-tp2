@@ -1,12 +1,12 @@
 //
-//  interface.c
+//  interfaceWH.c
 //  backtracking
 //
 //  Created by Gustavo Viegas on 23/10/18.
 //  Copyright © 2018 UFV Florestal. All rights reserved.
 //
 
-#include "interface.h"
+#include "interfaceWH.h"
 
 void _loadMatrix(char ***matrix, int *lines, int *columns) {
     if (*matrix != NULL) free(matrix);
@@ -22,19 +22,19 @@ void _printCurrentMatrix(char **matrix, int lines, int columns) {
     printMatrix(&matrix, lines, columns);
 }
 
-void _searchWord(char **matrix, int lines, int columns) {
+void _searchWord(char **matrix, int lines, int columns, int analysisMode) {
     char word[FILE_BUFFER_SIZE];
     printf("\n\n");
     printf("Digite uma palavra para ser buscada: ");
     scanf("%s", word);
-    search(&matrix, word, lines, columns);
+    search(&matrix, word, lines, columns, analysisMode);
 }
 
-void _promptAction(char **matrix, int *lines, int *columns) {
+void _promptAction(char **matrix, int *lines, int *columns, int analysisMode) {
     system("clear");
-    printLinha();
+    printLine();
     _printCurrentMatrix(matrix, *lines, *columns);
-
+    
     printf("\n\n");
     printf("Escolha uma ação: \n\n");
     printf("1- Carregar arquivo de caça-palavras\n");
@@ -48,7 +48,7 @@ void _promptAction(char **matrix, int *lines, int *columns) {
             _loadMatrix(&matrix, lines, columns);
             break;
         case 2:
-            _searchWord(matrix, *lines, *columns);
+            _searchWord(matrix, *lines, *columns, analysisMode);
             break;
         case 3:
             return;
@@ -57,12 +57,12 @@ void _promptAction(char **matrix, int *lines, int *columns) {
             break;
     }
     
-    return _promptAction(matrix, lines, columns);
+    return _promptAction(matrix, lines, columns, analysisMode);
 }
 
-void _wordHuntMenu(int mode) {
+void _wordHuntMenu(int analysisMode) {
     char **matrix = NULL;
     int lines, columns;
     
-    _promptAction(matrix, &lines, &columns);
+    _promptAction(matrix, &lines, &columns, analysisMode);
 }

@@ -19,3 +19,14 @@ void logWarning(char* message) {
 void logError(char* message) {
     printf("%s %s %s \n", ANSI_COLOR_RED, message, ANSI_COLOR_RESET);
 }
+
+void printLine (void) {
+    int i;
+    printf("\n");
+
+    for (i = 0; i < LINE_SIZE; i++) {
+        printf("=");
+    }
+    
+    printf("\n");
+}

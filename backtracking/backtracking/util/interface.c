@@ -1,22 +1,14 @@
 #include "interface.h"
 
-void printLinha(){
-    int i;
-    printf("\n");
-    for(i=0;i<LINE_SIZE;i++){
-        printf("=");
-    }
-    printf("\n");
-}
 void printHeader(int modo){
     system("clear");
     char BemVindo[1000];
     sprintf(BemVindo, "_____                      _   _ _           _       \n| ___ \\                    | | | (_)         | |\n| |_/ / ___ _ __ ___ ______| | | |_ _ __   __| | ___\n| ___ \\/ _ \\ '_ ` _ \\______| | | | | '_ \\ / _` |/ _ \\\n| |_/ /  __/ | | | | |     \\ \\_/ / | | | | (_| | (_) |\n\\____/ \\___|_| |_| |_|      \\___/|_|_| |_|\\__,_|\\___/\n");
     printf("\n\n");
-    printLinha();
+    printLine();
     logInfo(BemVindo);
     printf("\n Ao Resolvedor COQUETEL !");
-    printLinha();
+    printLine();
     printMenuInicial(modo);
 }
 
@@ -45,7 +37,7 @@ void MenuSudoku(int modo){
     int **matrix = NULL;
     int arquivo;
 
-    printLinha();
+    printLine();
     printf("Deseja escrever um sudoku ou resolver um que nós já possuímos em nossos arquivos ?\n");
     printf("1- escrever\n");
     printf("2- arquivos\n");
@@ -71,12 +63,12 @@ void printAllSudoku(int ***matrix){
     strcpy(sudoku2, "sudoku2.txt");
     strcpy(sudokuResolvido, "sudokuResolvido.txt");
     strcpy(sudokuBranco, "sudokuBranco.txt");
-    printLinha();
+    printLine();
     printf("Escolha um dos nossos excelentes sudokus\n");
     printf("1-Sudoku 1:\n");
     loadSudoku(matrix, sudoku1);
     printSudoku(*matrix);
-    printLinha();
+    printLine();
     printf("Pressione enter para ver o próximo sudoku!\n");
     getchar();
     getchar();
@@ -84,21 +76,21 @@ void printAllSudoku(int ***matrix){
     printf("2-Sudoku 2:\n");
     loadSudoku(matrix, sudoku2);
     printSudoku(*matrix);
-    printLinha();
+    printLine();
     printf("Pressione enter para ver o próximo sudoku!\n");
     getchar();
     system("clear");
     printf("3-Sudoku que já está resolvido:\n");
     loadSudoku(matrix, sudokuResolvido);
     printSudoku(*matrix);
-    printLinha();
+    printLine();
     printf("Pressione enter para ver o próximo sudoku!\n");
     getchar();
     system("clear");
     printf("4-Sudoku em branco (resultado desse é legal)\n");
     loadSudoku(matrix, sudokuBranco);
     printSudoku(*matrix);
-    printLinha();
+    printLine();
     printf("Escolha um dos sudokus de 1 a 4 !\n");
     printf("->");
     scanf("%d", &escolhaSudoku);
@@ -122,15 +114,15 @@ void printAllSudoku(int ***matrix){
 }
 
 void showResult(int ***matrix, int modo){
-    printLinha();
+    printLine();
     int numTentativas = 0;
     int escolha;
     printf("Exibindo o sudoku solucionado!\n");
-    printLinha();
+    printLine();
     solveSudoku(*matrix, &numTentativas);
     printSudoku(*matrix);
     if(modo)
-        printLinha();
+        printLine();
         printf("Foram feitas %d comparações!\n", numTentativas);
     printf("Digite 1 para resolver outro sudoku e 2 para resolver outro quebra-cabeça ?\n");
     printf("->");
@@ -141,7 +133,7 @@ void showResult(int ***matrix, int modo){
         case 2:
             printHeader(modo);
         default:
-            printLinha();
+            printLine();
             printf("Interrompendo execução do programa...\n");
     }
 

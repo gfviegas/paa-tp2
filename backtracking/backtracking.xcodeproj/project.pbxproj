@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		EC2B3CFE217FDEA50084FFFB /* interface.c in Sources */ = {isa = PBXBuildFile; fileRef = EC2B3CFC217FDEA50084FFFB /* interface.c */; };
 		EC2B3D0A217FDF170084FFFB /* sudoku.c in Sources */ = {isa = PBXBuildFile; fileRef = EC2B3D09217FDF170084FFFB /* sudoku.c */; };
-		EC2B3D0D217FE00E0084FFFB /* interface.c in Sources */ = {isa = PBXBuildFile; fileRef = EC2B3D0C217FE00E0084FFFB /* interface.c */; };
+		EC2B3D13217FEB930084FFFB /* interfaceWH.c in Sources */ = {isa = PBXBuildFile; fileRef = EC2B3D12217FEB930084FFFB /* interfaceWH.c */; };
 		EC581DB921780A5900B6F697 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = EC581DB821780A5900B6F697 /* main.c */; };
 		EC581DC921780B0200B6F697 /* wordHunt.c in Sources */ = {isa = PBXBuildFile; fileRef = EC581DC721780B0200B6F697 /* wordHunt.c */; };
 		EC581DCE21780B0700B6F697 /* logger.c in Sources */ = {isa = PBXBuildFile; fileRef = EC581DCC21780B0700B6F697 /* logger.c */; };
@@ -33,8 +33,8 @@
 		EC2B3CFD217FDEA50084FFFB /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
 		EC2B3D07217FDF170084FFFB /* sudoku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudoku.h; sourceTree = "<group>"; };
 		EC2B3D09217FDF170084FFFB /* sudoku.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudoku.c; sourceTree = "<group>"; };
-		EC2B3D0B217FE00E0084FFFB /* interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
-		EC2B3D0C217FE00E0084FFFB /* interface.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = interface.c; sourceTree = "<group>"; };
+		EC2B3D11217FEB930084FFFB /* interfaceWH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interfaceWH.h; sourceTree = "<group>"; };
+		EC2B3D12217FEB930084FFFB /* interfaceWH.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = interfaceWH.c; sourceTree = "<group>"; };
 		EC581DB521780A5900B6F697 /* backtracking */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = backtracking; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC581DB821780A5900B6F697 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		EC581DC121780A8D00B6F697 /* palavras.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = palavras.txt; sourceTree = "<group>"; };
@@ -112,8 +112,8 @@
 			children = (
 				EC581DC721780B0200B6F697 /* wordHunt.c */,
 				EC581DC821780B0200B6F697 /* wordHunt.h */,
-				EC2B3D0B217FE00E0084FFFB /* interface.h */,
-				EC2B3D0C217FE00E0084FFFB /* interface.c */,
+				EC2B3D11217FEB930084FFFB /* interfaceWH.h */,
+				EC2B3D12217FEB930084FFFB /* interfaceWH.c */,
 			);
 			path = wordHunt;
 			sourceTree = "<group>";
@@ -178,8 +178,8 @@
 				EC2B3CFE217FDEA50084FFFB /* interface.c in Sources */,
 				EC581DCF21780B0700B6F697 /* fileReader.c in Sources */,
 				EC581DC921780B0200B6F697 /* wordHunt.c in Sources */,
-				EC2B3D0D217FE00E0084FFFB /* interface.c in Sources */,
 				EC581DCE21780B0700B6F697 /* logger.c in Sources */,
+				EC2B3D13217FEB930084FFFB /* interfaceWH.c in Sources */,
 				EC581DB921780A5900B6F697 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

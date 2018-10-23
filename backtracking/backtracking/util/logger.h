@@ -22,10 +22,14 @@
 #define ANSI_COLOR_CYAN     "\x1b[36m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
 
+#define LINE_SIZE 60
+
 void logInfo(char* message);
 
 void logWarning(char* message);
 
 void logError(char* message);
+
+void printLine(void);
 
 #endif /* logger_h */

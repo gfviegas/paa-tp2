@@ -103,7 +103,7 @@ int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int 
     return 0;
 }
 
-void search(char ***matrix, char *word, int lines, int columns) {
+void search(char ***matrix, char *word, int lines, int columns, int analysisMode) {
     int results = 0;
     int calls = 0;
     int wordLen = (int)(strlen(word));
@@ -117,12 +117,10 @@ void search(char ***matrix, char *word, int lines, int columns) {
         }
     }
 
-//    char msg[100];
-//    sprintf(msg, "Foram encontradas %d ocorrências", results);
-//    logInfo(msg);
-//    free(msg);
-
-    printf("Teve %d chamadas\n", calls);
+    if (analysisMode) {
+        printf("Teve %d chamadas\n", calls);
+    }
+    
     printf("Foram encontradas %d ocorrências\n", results);
     if (results > 0)
         printMatrix(&resultMatrix, lines, columns);
