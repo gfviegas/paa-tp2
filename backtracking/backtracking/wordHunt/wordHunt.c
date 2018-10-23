@@ -76,8 +76,9 @@ int checkMatch(char ***matrix, char query, int line, int column) {
     return (line >= 0 && column >= 0 && (query == matrixValue));
 }
 
-int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement) {
+int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement, int* calls) {
     Movements i;
+    (*calls)++;
     
     // Acabou se estou procurando a n-esima + 1 letra da palavra
     if (wordIdx == wordLen) return 1;
@@ -99,7 +100,7 @@ int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int 
         int nextLine = (i == BOTTOM) ? lineIdx + 1 : lineIdx;
         int nextColumn = (i == LEFT) ? columnIdx - 1 : (i == RIGHT) ? columnIdx + 1 : columnIdx;
         
-        if (backtracking(matrix, linesAmt, columnsAmt, nextLine, nextColumn, word, wordIdx, wordLen, resultMatrix, i)) {
+        if (backtracking(matrix, linesAmt, columnsAmt, nextLine, nextColumn, word, wordIdx, wordLen, resultMatrix, i, calls)) {
             (*resultMatrix)[lineIdx][columnIdx] = query;
             return 1;
         }
@@ -112,6 +113,7 @@ int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int 
 
 void search(char ***matrix, char *word, int lines, int columns) {
     int results = 0;
+    int calls = 0;
     int wordLen = (int)(strlen(word));
     char **resultMatrix;
     createMatrix(&resultMatrix, lines, columns);
@@ -119,7 +121,7 @@ void search(char ***matrix, char *word, int lines, int columns) {
     
     for (int i = 0; i < lines; i++) {
         for (int j = 0; j < columns; j++) {
-            if ((*matrix)[i][j] == word[0] && backtracking(matrix, lines, columns, i, j, word, 0, wordLen, &resultMatrix, NONE)) results++;
+            if ((*matrix)[i][j] == word[0] && backtracking(matrix, lines, columns, i, j, word, 0, wordLen, &resultMatrix, NONE, &calls)) results++;
         }
     }
   
@@ -128,6 +130,7 @@ void search(char ***matrix, char *word, int lines, int columns) {
 //    logInfo(msg);
 //    free(msg);
     
+    printf("Teve %d chamadas\n", calls);
     printf("Foram encontradas %d ocorrências\n", results);
     if (results > 0)
         printMatrix(&resultMatrix, lines, columns);
