@@ -8,26 +8,30 @@
 
 #include "interfaceS.h"
 
+/**
+ * Menu Principal para interface do Sudoku
+ * @param analysisMode é 1 caso esteja no modo análise e 0 caso contrário
+ */
 void _sudokuMenu (int analysisMode) {
-    system("clear");
+    system("clear");//limpa o terminal
     int **matrix = NULL;
     int arquivo;
-    
+
     printLine();
     cprintf(GREEN, "Deseja escrever um sudoku ou resolver um que nós já possuímos em nossos arquivos ?\n");
     cprintf(GREEN, "1 - Escrever\n");
     cprintf(GREEN, "2 - Arquivos\n");
     cprintf(GREEN, "3 - Cancelar\n");
-    
-    prePrompt();
+
+    prePrompt();//exibe uma seta amarela para representar a escolha do usuário
     scanf("%d", &arquivo);
-    
+
     switch (arquivo) {
         case 1:
-            readSudoku(&matrix);
+            readSudoku(&matrix);//usuario escrve o sudoku no terminal
             break;
         case 2:
-            _printAllSudoku(&matrix);
+            _printAllSudoku(&matrix);//exibe todos os sudokus
             break;
         case 3:
             return printHeader(analysisMode);
@@ -36,59 +40,44 @@ void _sudokuMenu (int analysisMode) {
             return _sudokuMenu(analysisMode);
     }
 
-    _showResultSudoku(&matrix, analysisMode);
+    _showResultSudoku(&matrix, analysisMode);//após o usuario ter determinado o seu sudoku exibe o resultado
 }
 
+/**
+ * Exibe todos os sudokus que temos de arquivo
+ * @param matrix [description]
+ */
 void _printAllSudoku (int ***matrix) {
-    char sudoku1[20], sudoku2[20], sudokuResolvido[30], sudokuBranco[30];
+    char *sudokus [] = {"sudoku1.txt", "sudoku2.txt", "sudokuResolvido.txt", "sudokuBranco.txt"};
     int escolhaSudoku;
-    strcpy(sudoku1, "sudoku1.txt");
-    strcpy(sudoku2, "sudoku2.txt");
-    strcpy(sudokuResolvido, "sudokuResolvido.txt");
-    strcpy(sudokuBranco, "sudokuBranco.txt");
+    int i;
     printLine();
     cprintf(GREEN, "Escolha um dos nossos excelentes sudokus\n");
-    cprintf(GREEN, "1 - Sudoku 1:\n");
-    loadSudoku(matrix, sudoku1);
-    printSudoku(*matrix);
-    printLine();
-    cprintf(RED, "Pressione enter para ver o próximo sudoku!\n");
-    getchar();
-    getchar();
-    system("clear");
-    cprintf(GREEN, "2 - Sudoku 2:\n");
-    loadSudoku(matrix, sudoku2);
-    printSudoku(*matrix);
-    printLine();
-    cprintf(RED, "Pressione enter para ver o próximo sudoku!\n");
-    getchar();
-    system("clear");
-    cprintf(GREEN, "3 - Sudoku que já está resolvido:\n");
-    loadSudoku(matrix, sudokuResolvido);
-    printSudoku(*matrix);
-    printLine();
-    cprintf(RED, "Pressione enter para ver o próximo sudoku!\n");
-    getchar();
-    system("clear");
-    cprintf(GREEN, "4 - Sudoku em Branco (o resultado desse é legal!)\n");
-    loadSudoku(matrix, sudokuBranco);
-    printSudoku(*matrix);
-    printLine();
+    for(i=0; i<4; i++) {
+        cprintf(RED, "Pressione ENTER para ver o próximo sudoku!\n");
+        getchar();
+        system("clear");
+        cprintf(GREEN, "%d -\n", i);
+        loadSudoku(matrix, sudokus[i]);
+        printSudoku(*matrix);
+        printLine();
+
+    }
     cprintf(GREEN, "Escolha um dos sudokus de 1 a 4 !\n");
     prePrompt();
     scanf("%d", &escolhaSudoku);
     switch (escolhaSudoku) {
         case 1:
-            loadSudoku(matrix, sudoku1);
+            loadSudoku(matrix,sudokus[0]);
             break;
         case 2:
-            loadSudoku(matrix, sudoku2);
+            loadSudoku(matrix, sudokus[1]);
             break;
         case 3:
-            loadSudoku(matrix, sudokuResolvido);
+            loadSudoku(matrix, sudokus[2]);
             break;
         case 4:
-            loadSudoku(matrix,sudokuBranco);
+            loadSudoku(matrix, sudokus[3]);
             break;
         default:
             cprintf(RED, "\nNão temos tantos sudokus, escolha um de 1 a 4\n");
@@ -96,17 +85,23 @@ void _printAllSudoku (int ***matrix) {
     }
 }
 
+/**
+ * Resolve e exibe um sudokus
+ * @param matrix       Matriz que contém o sudoku
+ * @param analysisMode 1 caso esteja em modo análise e 0 caso contrário
+ */
 void _showResultSudoku (int ***matrix, int analysisMode) {
-    printLine();
     int numTentativas = 0;
     int escolha;
     cprintf(MAGENTA, "\nExibindo o sudoku solucionado!\n");
     printLine();
     solveSudoku(*matrix, &numTentativas);
     printSudoku(*matrix);
-    if(analysisMode)
+    printLine();
+    if(analysisMode) {
         printLine();
-    cprintf(RED, "\nForam feitas %d comparações!\n", numTentativas);
+        cprintf(RED, "\nForam feitas %d comparações!\n", numTentativas);
+    }
     cprintf(GREEN, "\nDigite 1 para resolver outro sudoku ou 2 para voltar\n");
     prePrompt();
     scanf("%d", &escolha);
@@ -119,5 +114,5 @@ void _showResultSudoku (int ***matrix, int analysisMode) {
             printLine();
             cprintf(RED, "Interrompendo execução do programa...\n");
     }
-    
+
 }

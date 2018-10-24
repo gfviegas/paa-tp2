@@ -14,6 +14,7 @@
 
 #include "wordHunt.h"
 #include "../util/interface.h"
+#include "../util/logger.h"
 
 /**
  * Imprime a matriz carregada, em uma tabela estilizada
