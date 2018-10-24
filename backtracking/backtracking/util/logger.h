@@ -1,10 +1,8 @@
-//
-//  logger.h
-//  paa-tp2
-//
-//  Created by Gustavo Viegas on 16/10/18.
-//  Copyright © 2018 UFV Florestal. All rights reserved.
-//
+/**
+ * Auxilia no output do programa com funções auxiliares para colorir o terminal
+ *
+ * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ */
 
 #ifndef logger_h
 #define logger_h
@@ -23,26 +21,35 @@
 #define ANSI_COLOR_CYAN     "\x1b[36m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
 
+// Tamanho da linha a ser impressa diversas vezes
 #define LINE_SIZE 60
+
+// Tamanho máximo de uma string a ser impressa com a funcao cprintf
 #define CPRINTF_BUFFER_LENGTH 4096
 
+/**
+ * Cores disponíveis para ser impressas
+ */
 typedef enum AvailableColors {
-    RED,
-    GREEN,
-    YELLOW,
-    BLUE,
-    MAGENTA,
-    CYAN
+    RED, // Vermelho
+    GREEN, // Verde
+    YELLOW, // Amarelo
+    BLUE, // Azul
+    MAGENTA, // Magenta
+    CYAN // Ciano
 } AvailableColors;
 
+/**
+ * Colored-Printf. Imprime uma mensagem no stdout, como no printf, mas colorido
+ * @param color   Cor da mensagem a ser impressa
+ * @param fmt     String de formato como do printf
+ * @param VARARGS Argumentos adicionais a ser misturados no fmt
+ */
 void cprintf(AvailableColors color, const char* fmt, ...);
 
-void logInfo(char* message);
-
-void logWarning(char* message);
-
-void logError(char* message);
-
+/**
+ * Imprime uma linha de tamanho LINE_SIZE, em cor Ciano
+ */
 void printLine(void);
 
 #endif /* logger_h */

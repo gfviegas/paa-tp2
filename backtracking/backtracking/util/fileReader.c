@@ -21,8 +21,6 @@ void openFile(FILE** file, char *filePath) {
         cprintf(RED, "O arquivo %s não existe ou não pode ser lido corretamente.\n Confira o caminho inserido e digite outro.", filePath);
         return openFile(file, filePath);
     }
-
-    //logInfo("Arquivo carregado com sucesso.");
 }
 
 void readLine(FILE* file, char* buffer) {
