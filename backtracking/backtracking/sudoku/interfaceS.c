@@ -57,7 +57,7 @@ void _printAllSudoku (int ***matrix) {
         cprintf(RED, "Pressione ENTER para ver o próximo sudoku!\n");
         getchar();
         system("clear");
-        cprintf(GREEN, "%d -\n", i);
+        cprintf(GREEN, "%d -\n", i+1);
         loadSudoku(matrix, sudokus[i]);
         printSudoku(*matrix);
         printLine();
