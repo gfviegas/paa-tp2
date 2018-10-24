@@ -1,13 +1,12 @@
-//
-//  logger.c
-//  paa-tp2
-//
-//  Created by Gustavo Viegas on 16/10/18.
-//  Copyright © 2018 UFV Florestal. All rights reserved.
-//
+/**
+ * Auxilia no output do programa com funções auxiliares para colorir o terminal
+ *
+ * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ */
 
 #include "logger.h"
 
+// Colored-Printf. Imprime uma mensagem no stdout, como no printf, mas colorido
 void cprintf(AvailableColors color, const char* fmt, ...) {
     static const char* colors[] = {
         ANSI_COLOR_RED,
@@ -17,8 +16,8 @@ void cprintf(AvailableColors color, const char* fmt, ...) {
         ANSI_COLOR_MAGENTA,
         ANSI_COLOR_CYAN
     };
-    
-    char buffer[4096];
+
+    char buffer[CPRINTF_BUFFER_LENGTH];
     va_list args;
     va_start(args, fmt);
     vsnprintf(buffer, sizeof(buffer), fmt, args);
@@ -27,25 +26,12 @@ void cprintf(AvailableColors color, const char* fmt, ...) {
     printf("%s%s%s", colors[color], buffer, ANSI_COLOR_RESET);
 }
 
-void logInfo(char* message) {
-    printf("%s %s %s \n", ANSI_COLOR_BLUE, message, ANSI_COLOR_RESET);
-}
-
-void logWarning(char* message) {
-    printf("%s %s %s \n", ANSI_COLOR_YELLOW, message, ANSI_COLOR_RESET);
-}
-
-void logError(char* message) {
-    printf("%s %s %s \n", ANSI_COLOR_RED, message, ANSI_COLOR_RESET);
-}
-
+// Imprime uma linha de tamanho LINE_SIZE, em cor Ciano
 void printLine (void) {
-    int i;
     printf("\n");
 
-    for (i = 0; i < LINE_SIZE; i++) {
+    for (int i = 0; i < LINE_SIZE; i++)
         printf("%s=", ANSI_COLOR_CYAN);
-    }
-    
+
     printf("\n%s", ANSI_COLOR_RESET);
 }
