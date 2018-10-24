@@ -24,8 +24,10 @@ void fillMatrix(char ***matrix, int matrixLines, int matrixColumns) {
 
 void loadMatrix(char ***matrix, int *matrixLines, int *matrixColumns) {
     char currentLine[FILE_BUFFER_SIZE];
-    FILE *file = NULL;
     char fileName[FILE_BUFFER_SIZE];
+    FILE *file = NULL;
+
+    if (*matrix != NULL) free(*matrix);
 
     promptFilePath(fileName);
     openFile(&file, fileName);
@@ -56,7 +58,7 @@ void printMatrix(char ***matrix, int lines, int columns, char* header) {
     printMatrixLine(columns, 1, 1);
     cprintf(MAGENTA, "%*s", precision, header);
     printMatrixLine(columns, 1, 1);
-    
+
     for (int i = 0; i < lines; i++) {
         cprintf(BLUE, " | ");
         for (int j = 0; j < columns; j++) {
@@ -64,7 +66,7 @@ void printMatrix(char ***matrix, int lines, int columns, char* header) {
         }
         cprintf(BLUE, " |\n");
     }
-    
+
     printMatrixLine(columns, 0 , 1);
 }
 
@@ -81,12 +83,12 @@ int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int 
 
     // Se os indices de procura nao estao na matriz, entao é sem-esperança.
     if (lineIdx < 0 || columnIdx < 0 || lineIdx >= linesAmt || columnIdx >= columnsAmt) return 0;
-    
+
     char query = word[wordIdx];
-    
+
     // Se estou em uma posição cuja letra procurada nao está presente, não adianta continuar.
     if (!checkMatch(matrix, query, lineIdx, columnIdx)) return 0;
-    
+
     // Acabou se estou procurando a n-esima letra da palavra e ela está na posicao certa
     if (wordIdx == (wordLen - 1)) {
         (*resultMatrix)[lineIdx][columnIdx] = query;
@@ -127,18 +129,16 @@ void search(char ***matrix, char *word, int lines, int columns, int analysisMode
                 backtracking(matrix, lines, columns, i, j, word, 0, wordLen, &resultMatrix, NONE, &calls, &results);
         }
     }
-    
-//    results = results % wordLen;
 
     if (analysisMode) {
-        printf("Teve %d chamadas\n", calls);
+        cprintf(RED, "[STATS] Teve %d chamadas recursivas\n", calls);
     }
-    
+
     printf("Foram encontradas %d ocorrências\n", results);
     if (results > 0)
         printMatrix(&resultMatrix, lines, columns, "Resultado");
     else
         logError("Não foi encontrada a palavra");
-    
+
     free(resultMatrix);
 }

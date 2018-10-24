@@ -7,18 +7,17 @@
 
 #include "logger.h"
 #include "../sudoku/sudoku.h"
+#include "../sudoku/interfaceS.h"
 #include "../wordHunt/interfaceWH.h"
+
+void prePrompt(void);
 
 void printLine(void);
 
-void printHeader(int modo);
+void printHeader(int analysisMode);
 
-void printMenuInicial(int modo);
+void printMenuInicial(int analysisMode);
 
-void MenuSudoku(int modo);
 
-void printAllSudoku(int ***matrix);
-
-void showResult(int ***matrix, int modo);
 
 #endif

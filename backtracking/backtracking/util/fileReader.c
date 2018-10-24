@@ -8,10 +8,9 @@
 
 #include "fileReader.h"
 
-
 void promptFilePath(char* filePath) {
     cprintf(GREEN, "\nInsira o caminho do arquivo de leitura: \n");
-    cprintf(YELLOW, "->  ");
+    prePrompt();
     scanf("%s", filePath);
 }
 
