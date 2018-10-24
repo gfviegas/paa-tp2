@@ -8,9 +8,9 @@
 
 #include "fileReader.h"
 
-
 void promptFilePath(char* filePath) {
-    printf("Insira o caminho do arquivo de leitura: ");
+    cprintf(GREEN, "\nInsira o caminho do arquivo de leitura: \n");
+    prePrompt();
     scanf("%s", filePath);
 }
 
@@ -18,9 +18,7 @@ void openFile(FILE** file, char *filePath) {
     *file = fopen(filePath, "r");
 
     if (*file == NULL) {
-        char message[300];
-        sprintf(message, "O arquivo %s não existe ou não pode ser lido corretamente.\n Confira o caminho inserido e digite outro.", filePath);
-        logError(message);
+        cprintf(RED, "O arquivo %s não existe ou não pode ser lido corretamente.\n Confira o caminho inserido e digite outro.", filePath);
         return openFile(file, filePath);
     }
 

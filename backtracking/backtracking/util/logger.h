@@ -10,6 +10,7 @@
 #define logger_h
 
 #include <stdio.h>
+#include <stdarg.h>
 #include <ctype.h>
 
 
@@ -22,10 +23,26 @@
 #define ANSI_COLOR_CYAN     "\x1b[36m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
 
+#define LINE_SIZE 60
+#define CPRINTF_BUFFER_LENGTH 4096
+
+typedef enum AvailableColors {
+    RED,
+    GREEN,
+    YELLOW,
+    BLUE,
+    MAGENTA,
+    CYAN
+} AvailableColors;
+
+void cprintf(AvailableColors color, const char* fmt, ...);
+
 void logInfo(char* message);
 
 void logWarning(char* message);
 
 void logError(char* message);
+
+void printLine(void);
 
 #endif /* logger_h */
