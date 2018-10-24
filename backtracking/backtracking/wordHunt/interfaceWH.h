@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "wordHunt.h"
+#include "../util/interface.h"
 
 void _loadMatrix(char ***matrix, int *lines, int *columns);
 void _printCurrentMatrix(char **matrix, int lines, int columns);

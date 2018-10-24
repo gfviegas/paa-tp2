@@ -2,23 +2,24 @@
 
 void printHeader(int modo){
     system("clear");
-    char BemVindo[1000];
-    sprintf(BemVindo, "_____                      _   _ _           _       \n| ___ \\                    | | | (_)         | |\n| |_/ / ___ _ __ ___ ______| | | |_ _ __   __| | ___\n| ___ \\/ _ \\ '_ ` _ \\______| | | | | '_ \\ / _` |/ _ \\\n| |_/ /  __/ | | | | |     \\ \\_/ / | | | | (_| | (_) |\n\\____/ \\___|_| |_| |_|      \\___/|_|_| |_|\\__,_|\\___/\n");
+    
     printf("\n\n");
     printLine();
-    logInfo(BemVindo);
-    printf("\n Ao Resolvedor COQUETEL !");
+    cprintf(BLUE, "_____                      _   _ _           _       \n| ___ \\                    | | | (_)         | |\n| |_/ / ___ _ __ ___ ______| | | |_ _ __   __| | ___\n| ___ \\/ _ \\ '_ ` _ \\______| | | | | '_ \\ / _` |/ _ \\\n| |_/ /  __/ | | | | |     \\ \\_/ / | | | | (_| | (_) |\n\\____/ \\___|_| |_| |_|      \\___/|_|_| |_|\\__,_|\\___/\n");
+    cprintf(BLUE, "\n \t Ao Resolvedor COQUETEL !");
     printLine();
     printMenuInicial(modo);
 }
 
-void printMenuInicial(int modo){
-    printf("\n\n");
-    printf("Selecione qual quebra-cabeça COQUETEL você deseja resolver : \n\n");
-    printf("1- Caça-palavra\n");
-    printf("2- Sudoku\n");
+void printMenuInicial(int modo) {
     int escolha;
+    
+    cprintf(GREEN, "\n \n Selecione qual quebra-cabeça COQUETEL você deseja resolver : \n\n");
+    cprintf(GREEN, "1 - Caça-palavra\n");
+    cprintf(GREEN, "2 - Sudoku\n");
+    cprintf(YELLOW, "->  ");
     scanf("%d", &escolha);
+    
     switch (escolha) {
         case 1:
             _wordHuntMenu(modo);
@@ -27,7 +28,7 @@ void printMenuInicial(int modo){
             MenuSudoku(modo);
             break;
         default:
-            printf("\n\n * Digite apenas 1 ou 2, ainda não temos tantos quebra-cabeças :(\n");
+            cprintf(RED, "\n\n * Digite apenas 1 ou 2, ainda não temos tantos quebra-cabeças :(\n");
             return printMenuInicial(modo);
     }
 }
@@ -38,9 +39,9 @@ void MenuSudoku(int modo){
     int arquivo;
 
     printLine();
-    printf("Deseja escrever um sudoku ou resolver um que nós já possuímos em nossos arquivos ?\n");
-    printf("1- escrever\n");
-    printf("2- arquivos\n");
+    cprintf(GREEN, "Deseja escrever um sudoku ou resolver um que nós já possuímos em nossos arquivos ?\n");
+    cprintf(GREEN, "1 - Escrever\n");
+    cprintf(GREEN, "2 - Arquivos\n");
     scanf("%d", &arquivo);
     switch (arquivo) {
         case 1:
@@ -50,7 +51,7 @@ void MenuSudoku(int modo){
             printAllSudoku(&matrix);
             break;
         default:
-            printf("\n Digite 1 ou 2, não temos tantas opções\n\n");
+            cprintf(RED, "\n Digite 1 ou 2, não temos tantas opções\n\n");
             return MenuSudoku(modo);
     }
     showResult(&matrix, modo);
@@ -64,35 +65,35 @@ void printAllSudoku(int ***matrix){
     strcpy(sudokuResolvido, "sudokuResolvido.txt");
     strcpy(sudokuBranco, "sudokuBranco.txt");
     printLine();
-    printf("Escolha um dos nossos excelentes sudokus\n");
-    printf("1-Sudoku 1:\n");
+    cprintf(GREEN, "Escolha um dos nossos excelentes sudokus\n");
+    cprintf(GREEN, "1 - Sudoku 1:\n");
     loadSudoku(matrix, sudoku1);
     printSudoku(*matrix);
     printLine();
-    printf("Pressione enter para ver o próximo sudoku!\n");
+    cprintf(RED, "Pressione enter para ver o próximo sudoku!\n");
     getchar();
     getchar();
     system("clear");
-    printf("2-Sudoku 2:\n");
+    cprintf(GREEN, "2 - Sudoku 2:\n");
     loadSudoku(matrix, sudoku2);
     printSudoku(*matrix);
     printLine();
-    printf("Pressione enter para ver o próximo sudoku!\n");
+    cprintf(RED, "Pressione enter para ver o próximo sudoku!\n");
     getchar();
     system("clear");
-    printf("3-Sudoku que já está resolvido:\n");
+    cprintf(GREEN, "3 - Sudoku que já está resolvido:\n");
     loadSudoku(matrix, sudokuResolvido);
     printSudoku(*matrix);
     printLine();
-    printf("Pressione enter para ver o próximo sudoku!\n");
+    cprintf(RED, "Pressione enter para ver o próximo sudoku!\n");
     getchar();
     system("clear");
-    printf("4-Sudoku em branco (resultado desse é legal)\n");
+    cprintf(GREEN, "4 - Sudoku em Branco (o resultado desse é legal!)\n");
     loadSudoku(matrix, sudokuBranco);
     printSudoku(*matrix);
     printLine();
-    printf("Escolha um dos sudokus de 1 a 4 !\n");
-    printf("->");
+    cprintf(GREEN, "Escolha um dos sudokus de 1 a 4 !\n");
+    cprintf(YELLOW, "->  ");
     scanf("%d", &escolhaSudoku);
     switch (escolhaSudoku) {
         case 1:
@@ -108,7 +109,7 @@ void printAllSudoku(int ***matrix){
             loadSudoku(matrix,sudokuBranco);
             break;
         default:
-            printf("\nNão temos tantos sudokus, escolha um de 1 a 4\n");
+            cprintf(RED, "\nNão temos tantos sudokus, escolha um de 1 a 4\n");
             return printAllSudoku(matrix);
     }
 }
@@ -117,15 +118,15 @@ void showResult(int ***matrix, int modo){
     printLine();
     int numTentativas = 0;
     int escolha;
-    printf("Exibindo o sudoku solucionado!\n");
+    cprintf(MAGENTA, "\nExibindo o sudoku solucionado!\n");
     printLine();
     solveSudoku(*matrix, &numTentativas);
     printSudoku(*matrix);
     if(modo)
         printLine();
-        printf("Foram feitas %d comparações!\n", numTentativas);
-    printf("Digite 1 para resolver outro sudoku e 2 para resolver outro quebra-cabeça ?\n");
-    printf("->");
+        cprintf(RED, "\nForam feitas %d comparações!\n", numTentativas);
+    cprintf(GREEN, "\nDigite 1 para resolver outro sudoku e 2 para voltar\n");
+    cprintf(YELLOW, "->  ");
     scanf("%d", &escolha);
     switch (escolha) {
         case 1:
@@ -134,7 +135,7 @@ void showResult(int ***matrix, int modo){
             printHeader(modo);
         default:
             printLine();
-            printf("Interrompendo execução do programa...\n");
+            cprintf(RED, "Interrompendo execução do programa...\n");
     }
 
 }

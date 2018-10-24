@@ -9,25 +9,30 @@
 #include "interfaceWH.h"
 
 void _loadMatrix(char ***matrix, int *lines, int *columns) {
-    if (*matrix != NULL) free(matrix);
+    if (*matrix != NULL) free(*matrix);
     loadMatrix(matrix, lines, columns);
 }
 
 void _printCurrentMatrix(char **matrix, int lines, int columns) {
     if (matrix == NULL) {
-        logWarning("A matriz atual está vazia!");
+        cprintf(YELLOW, "A matriz atual está vazia! \n");
         return;
     }
     
-    printMatrix(&matrix, lines, columns);
+    printMatrix(&matrix, lines, columns, "Caça-Palavras:");
 }
 
 void _searchWord(char **matrix, int lines, int columns, int analysisMode) {
     char word[FILE_BUFFER_SIZE];
     printf("\n\n");
-    printf("Digite uma palavra para ser buscada: ");
+    cprintf(GREEN, "Digite uma palavra para ser buscada: \n");
+    cprintf(YELLOW, " ->  ");
     scanf("%s", word);
     search(&matrix, word, lines, columns, analysisMode);
+    cprintf(RED, "\nDigite enter para continuar...");
+    
+    getchar();
+    getchar();
 }
 
 void _promptAction(char **matrix, int *lines, int *columns, int analysisMode) {
@@ -36,12 +41,13 @@ void _promptAction(char **matrix, int *lines, int *columns, int analysisMode) {
     _printCurrentMatrix(matrix, *lines, *columns);
     
     printf("\n\n");
-    printf("Escolha uma ação: \n\n");
-    printf("1- Carregar arquivo de caça-palavras\n");
-    printf("2- Buscar palavra\n");
-    printf("3- Sair\n");
+    cprintf(GREEN, "Escolha uma ação: \n\n");
+    cprintf(GREEN, "1 - Carregar arquivo de caça-palavras\n");
+    cprintf(GREEN, "2 - Buscar palavra\n");
+    cprintf(GREEN, "3 - Sair\n");
     
     int choice;
+    cprintf(YELLOW, "->  ");
     scanf("%d", &choice);
     switch (choice) {
         case 1:
@@ -51,9 +57,9 @@ void _promptAction(char **matrix, int *lines, int *columns, int analysisMode) {
             _searchWord(matrix, *lines, *columns, analysisMode);
             break;
         case 3:
-            return;
+            return printMenuInicial(analysisMode);
         default:
-            logError("Opção inválida!");
+            cprintf(RED, "Opção inválida!\n");
             break;
     }
     

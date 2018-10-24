@@ -24,7 +24,7 @@ typedef enum Movements {
 } Movements;
 
 void loadMatrix(char ***matrix, int *matrixLines, int *matrixColumns);
-void printMatrix(char ***matrix, int lines, int columns);
-int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement, int *calls);
+void printMatrix(char ***matrix, int lines, int columns, char* header);
+int backtracking(char ***matrix, int linesAmt, int columnsAmt, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement, int* calls, int* occurrences);
 void search(char ***matrix, char *word, int lines, int columns, int analysisMode);
 #endif /* wordHunt_h */
