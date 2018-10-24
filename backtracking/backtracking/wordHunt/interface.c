@@ -18,7 +18,7 @@ void _printCurrentMatrix(char **matrix, int lines, int columns) {
         logWarning("A matriz atual está vazia!");
         return;
     }
-    
+
     printMatrix(&matrix, lines, columns);
 }
 
@@ -40,7 +40,7 @@ void _promptAction(char **matrix, int *lines, int *columns) {
     printf("1- Carregar arquivo de caça-palavras\n");
     printf("2- Buscar palavra\n");
     printf("3- Sair\n");
-    
+
     int choice;
     scanf("%d", &choice);
     switch (choice) {
@@ -56,13 +56,13 @@ void _promptAction(char **matrix, int *lines, int *columns) {
             logError("Opção inválida!");
             break;
     }
-    
+
     return _promptAction(matrix, lines, columns);
 }
 
 void _wordHuntMenu(int mode) {
     char **matrix = NULL;
     int lines, columns;
-    
+
     _promptAction(matrix, &lines, &columns);
 }
