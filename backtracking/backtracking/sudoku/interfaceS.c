@@ -1,17 +1,13 @@
-//
-//  interfaceS.c
-//  backtracking
-//
-//  Created by Gustavo Viegas on 24/10/18.
-//  Copyright © 2018 UFV Florestal. All rights reserved.
-//
+/**
+ * Gerencia e chama as funções relacionadas ao sudoku, imprimindo e lendo
+ * os dados necessários
+ *
+ * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ */
 
 #include "interfaceS.h"
 
-/**
- * Menu Principal para interface do Sudoku
- * @param analysisMode é 1 caso esteja no modo análise e 0 caso contrário
- */
+// Menu Principal para interface do Sudoku
 void _sudokuMenu (int analysisMode) {
     system("clear");//limpa o terminal
     int **matrix = NULL;
@@ -23,15 +19,15 @@ void _sudokuMenu (int analysisMode) {
     cprintf(GREEN, "2 - Arquivos\n");
     cprintf(GREEN, "3 - Cancelar\n");
 
-    prePrompt();//exibe uma seta amarela para representar a escolha do usuário
+    prePrompt(); // Exibe uma seta amarela para representar a escolha do usuário
     scanf("%d", &arquivo);
 
     switch (arquivo) {
         case 1:
-            readSudoku(&matrix);//usuario escrve o sudoku no terminal
+            readSudoku(&matrix); // Usuário escrve o sudoku no terminal
             break;
         case 2:
-            _printAllSudoku(&matrix);//exibe todos os sudokus
+            _printAllSudoku(&matrix); // Exibe todos os sudokus
             break;
         case 3:
             return printHeader(analysisMode);
@@ -40,20 +36,19 @@ void _sudokuMenu (int analysisMode) {
             return _sudokuMenu(analysisMode);
     }
 
-    _showResultSudoku(&matrix, analysisMode);//após o usuario ter determinado o seu sudoku exibe o resultado
+    _showResultSudoku(&matrix, analysisMode); // Após o usuario ter determinado o seu sudoku exibe o resultado
 }
 
-/**
- * Exibe todos os sudokus que temos de arquivo
- * @param matrix [description]
- */
+// Exibe todos os sudokus que temos de arquivo
 void _printAllSudoku (int ***matrix) {
     char *sudokus [] = {"sudoku1.txt", "sudoku2.txt", "sudokuResolvido.txt", "sudokuBranco.txt"};
     int escolhaSudoku;
     int i;
+
     printLine();
     cprintf(GREEN, "Escolha um dos nossos excelentes sudokus\n");
-    for(i=0; i<4; i++) {
+
+    for(i = 0; i < 4; i++) {
         cprintf(RED, "Pressione ENTER para ver o próximo sudoku!\n");
         getchar();
         system("clear");
@@ -85,11 +80,7 @@ void _printAllSudoku (int ***matrix) {
     }
 }
 
-/**
- * Resolve e exibe um sudokus
- * @param matrix       Matriz que contém o sudoku
- * @param analysisMode 1 caso esteja em modo análise e 0 caso contrário
- */
+// Resolve e exibe um sudokus
 void _showResultSudoku (int ***matrix, int analysisMode) {
     int numTentativas = 0;
     int escolha;

@@ -1,10 +1,9 @@
-//
-//  interfaceS.h
-//  backtracking
-//
-//  Created by Gustavo Viegas on 24/10/18.
-//  Copyright © 2018 UFV Florestal. All rights reserved.
-//
+/**
+ * Gerencia e chama as funções relacionadas ao sudoku, imprimindo e lendo
+ * os dados necessários
+ *
+ * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ */
 
 #ifndef interfaceS_h
 #define interfaceS_h
@@ -16,10 +15,23 @@
 #include "../util/interface.h"
 #include "../util/logger.h"
 
+/**
+ * Menu Principal para interface do Sudoku
+ * @param analysisMode é 1 caso esteja no modo análise e 0 caso contrário
+ */
 void _sudokuMenu(int analysisMode);
 
+/**
+ * Exibe todos os sudokus que temos de arquivo
+ * @param matrix Ponteiro para a matriz com o sudoku
+ */
 void _printAllSudoku(int ***matrix);
 
+/**
+ * Resolve e exibe um sudokus
+ * @param matrix       Matriz que contém o sudoku
+ * @param analysisMode 1 caso esteja em modo análise e 0 caso contrário
+ */
 void _showResultSudoku(int ***matrix, int analysisMode);
 
 #endif /* interfaceS_h */
