@@ -2,6 +2,7 @@
  * Auxilia no output do programa com funções auxiliares para colorir o terminal
  *
  * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ * @author Gustavo Viegas
  */
 
 #include "logger.h"

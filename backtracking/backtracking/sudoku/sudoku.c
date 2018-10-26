@@ -24,7 +24,7 @@ void printSudokuLine(int index) {
 }
 
 // Exibe o sudoku no terminal com os caracteres '|' e '--' para separar os nove blocos do sudoku1
-void printSudoku(int **matrix){
+void printSudoku(int **matrix) {
     for (int i = 0; i < TAM_SUDOKU; i++) {
         if (i % 3 == 0) printSudokuLine(i);
 
@@ -111,7 +111,7 @@ void createEmptyMatrix(int ***matrix) {
 }
 
 // Função chamada caso o usuário queira escrever o sudoku na mão
-void readSudoku(int ***matrix){
+void readSudoku(int ***matrix) {
     if (*matrix != NULL) free(matrix);
     allocMatrixSudoku(matrix);
     int num;
@@ -128,7 +128,7 @@ void readSudoku(int ***matrix){
 
 // Verifica se a matriz possui algum 0, pois siginifica que todos os espaços já foram preenchidos e consequentemente
 // o sudoku está resolvido visto que é garantidamente uma posição válida
-int isSudokuResolvido(int **matrix){
+int isSudokuResolvido(int **matrix) {
     for (int i = 0; i < TAM_SUDOKU; i++)
         for (int j = 0; j < TAM_SUDOKU; j++)
             if (matrix[i][j] == 0) return 0;
@@ -205,7 +205,7 @@ int checkSudokuCall(int **matrix, int lineIndex, int columnIndex, int try) {
         if (matrix [lineIndex][i] == try || matrix[i][columnIndex] == try) return 0;
     }
 
-    //Percorre a matriz[3][3] interna
+    // Percorre a matriz[3][3] interna
     for (int i = 0; i < TAM_SUDOKU / 3; i++) {
         for (int j = 0; j < TAM_SUDOKU / 3; j++) {
             // Se ja possui o número no bloco retorna falso

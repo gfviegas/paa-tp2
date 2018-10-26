@@ -3,6 +3,7 @@
  * os dados necessários
  *
  * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ * @author Heitor Passeado
  */
 
 #ifndef interfaceS_h
@@ -20,6 +21,12 @@
  * @param analysisMode é 1 caso esteja no modo análise e 0 caso contrário
  */
 void _sudokuMenu(int analysisMode);
+
+/**
+ * Lê do usuário uma das opções de sudoku disponíveis pelo sistema
+ * @param sudokuChoice Ponteiro para o inteiro representando qual sudoku o usuário quer ver resolvido
+ */
+void _readSudokuChoice(int *sudokuChoice);
 
 /**
  * Exibe todos os sudokus que temos de arquivo

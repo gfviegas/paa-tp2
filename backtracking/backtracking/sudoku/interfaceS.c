@@ -3,6 +3,7 @@
  * os dados necessários
  *
  * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ * @author Heitor Passeado
  */
 
 #include "interfaceS.h"
@@ -39,6 +40,7 @@ void _sudokuMenu(int analysisMode) {
     _showResultSudoku(&matrix, analysisMode); // Após o usuario ter determinado o seu sudoku exibe o resultado
 }
 
+// Lê do usuário uma das opções de sudoku disponíveis pelo sistema
 void _readSudokuChoice(int *sudokuChoice) {
     cprintf(GREEN, "Escolha um dos sudokus de 1 a 4 !\n");
     prePrompt();
