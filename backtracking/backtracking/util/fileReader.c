@@ -18,7 +18,8 @@ void openFile(FILE** file, char *filePath) {
     *file = fopen(filePath, "r");
 
     if (*file == NULL) {
-        cprintf(RED, "O arquivo %s não existe ou não pode ser lido corretamente.\n Confira o caminho inserido e digite outro.", filePath);
+        cprintf(RED, "O arquivo %s não existe ou não pode ser lido corretamente.\n Confira o caminho inserido e digite outro.\n\n", filePath);
+        promptFilePath(filePath);
         return openFile(file, filePath);
     }
 }

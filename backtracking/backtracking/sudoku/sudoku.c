@@ -9,22 +9,36 @@
  * @param filePath Caminho do arquivo com extensão
  */
 void loadSudoku(int ***matrix, char* filePath){
-    *matrix = (int **) malloc(TAM_SUDOKU* TAM_SUDOKU * sizeof(int));
-    int i = 0, j = 0;
+    allocMatrixSudoku(matrix);
+
     char currentLine[FILE_BUFFER_SIZE];
     FILE *file = NULL;
     openFile(&file, filePath);
-    for(i = 0;i < TAM_SUDOKU;i++){
 
-        j = 0;
+    for (int i = 0; i < TAM_SUDOKU; i++) {
         readLine(file, currentLine);
-        (*matrix)[i] = (int *) malloc(TAM_SUDOKU * sizeof(int));
 
-        for(j = 0;j < TAM_SUDOKU;j++){
+        for (int j = 0; j < TAM_SUDOKU; j++)
             (*matrix)[i][j] = (currentLine[j] - CONVERSOR_ASCII);
-        }
     }
+
     fclose(file);
+}
+
+void allocMatrixSudoku(int ***matrix) {
+    *matrix = (int **) malloc(TAM_SUDOKU* TAM_SUDOKU * sizeof(int));
+
+    for (int i = 0; i < TAM_SUDOKU; i++)
+        (*matrix)[i] = (int *) malloc(TAM_SUDOKU * sizeof(int));
+}
+
+void createEmptyMatrix(int ***matrix) {
+    if (*matrix != NULL) free(matrix);
+    allocMatrixSudoku(matrix);
+
+    for (int i = 0; i < TAM_SUDOKU; i++)
+        for (int j = 0; j < TAM_SUDOKU; j++)
+            (*matrix)[i][j] = 0;
 }
 
 /*
@@ -32,17 +46,32 @@ void loadSudoku(int ***matrix, char* filePath){
  * @param matrix [Matriz que terá o sudoku armazenado]
  */
 void readSudoku(int ***matrix){
-    *matrix = (int **) malloc(TAM_SUDOKU* TAM_SUDOKU * sizeof(int));
-    int i, j, num;
+    if (*matrix != NULL) free(matrix);
+    allocMatrixSudoku(matrix);
+    int num;
+
     printf("Você irá escrever o seu sudoku, quando o quadrado for vazio coloque 0--\n\n");
-    for(i=0;i<TAM_SUDOKU;i++){
-        (*matrix)[i] = (int *) malloc(TAM_SUDOKU * sizeof(int));
-        printf("Digite a linha número %d do seu sudoku:\n", i+1);
-        for(j=0;j<TAM_SUDOKU;j++){
+    for (int i = 0; i < TAM_SUDOKU; i++) {
+        printf("Digite a linha número %d do seu sudoku:\n", i + 1);
+        for(int j = 0; j < TAM_SUDOKU; j++) {
             scanf("%d", &num);
             (*matrix)[i][j] = num;
         }
     }
+}
+
+void printSudokuLine(int index) {
+    int isRow = (index == 0 || index == 8);
+    char* border = isRow ? "-" : "|";
+
+    cprintf(CYAN, "%s", border);
+
+    for (int i = 0; i < (TAM_SUDOKU * 2) + 5; i++) {
+        char* toPrint = ((!isRow) && (i == 7 || i == 15)) ? "+" : "-";
+        cprintf(CYAN, "%s", toPrint);
+    }
+
+    cprintf(CYAN, "%s\n", border);
 }
 
 /**
@@ -50,29 +79,51 @@ void readSudoku(int ***matrix){
  * @param matrix Matriz que contém o sudoku a ser exibido
  */
 void printSudoku(int **matrix){
-    int i, j;
-    for(i = 0; i < TAM_SUDOKU; i++){
-        for(j = 0; j < TAM_SUDOKU; j++){
-            if( j == 2 || j == 5 || j == 8)
-                if(matrix[i][j] == 0)
-                    printf(" |");
-                else
-                    printf("%d|", matrix[i][j]);
-            else
-                if(matrix[i][j] == 0)
-                    printf("  ");
-                else
-                    printf("%d ", matrix[i][j]);
+    for (int i = 0; i < TAM_SUDOKU; i++) {
+        if (i % 3 == 0) printSudokuLine(i);
 
+        for (int j = 0; j < TAM_SUDOKU; j++) {
+            if (j % 3 == 0) cprintf(CYAN, "| ");
+
+            if (matrix[i][j] == 0)
+                cprintf(YELLOW, "  ");
+            else
+                cprintf(YELLOW, "%d ", matrix[i][j]);
         }
-        printf("\n");
-        if(i == 2 || i == 5){
-            for(j=0; j < (TAM_SUDOKU * 2); j++){
-                printf("-");
-            }
-            printf("\n");
-        }
+        cprintf(CYAN, "|\n");
+        if (i == 8) printSudokuLine(i);
     }
+    printf("\n");
+}
+
+void printSolutionSudoku(int **matrix, int **solutionMatrix) {
+    AvailableColors color;
+    int currentValue;
+
+    for (int i = 0; i < TAM_SUDOKU; i++) {
+        if (i % 3 == 0) printSudokuLine(i);
+
+        for (int j = 0; j < TAM_SUDOKU; j++) {
+            color = RED;
+            currentValue = solutionMatrix[i][j];
+
+            if (j % 3 == 0) cprintf(CYAN, "| ");
+
+            if (currentValue == 0) {
+                currentValue = matrix[i][j];
+                color = YELLOW;
+            }
+
+            if (currentValue == 0)
+                cprintf(color, "  ");
+            else
+                cprintf(color, "%d ", currentValue);
+        }
+
+        cprintf(CYAN, "|\n");
+        if (i == 8) printSudokuLine(i);
+    }
+    printf("\n");
 }
 /**
  * Verifica se a matriz possui algum 0, pois siginifica que todos os espaços já foram preenchidos e consequentemente
@@ -81,13 +132,9 @@ void printSudoku(int **matrix){
  * @return        0 caso ainda haja espaços a serem preenchidos e 1 caso sudoku esteja resolvido
  */
 int isSudokuResolvido(int **matrix){
-    int i, j;
-    for(i = 0; i < TAM_SUDOKU; i++){
-        for(j=0; j < TAM_SUDOKU; j++){
-            if(matrix[i][j] == 0)
-                return 0;
-        }
-    }
+    for (int i = 0; i < TAM_SUDOKU; i++)
+        for (int j = 0; j < TAM_SUDOKU; j++)
+            if (matrix[i][j] == 0) return 0;
     return 1;
 }
 /**
@@ -96,8 +143,10 @@ int isSudokuResolvido(int **matrix){
  * @param  numTentativas Número de tentativas, passada como ponteiro para contabilizar quantas chamadas foram efetuadas
  * @return               1 se o sudoku foi resolvido, 0 se ele não possui solução
  */
-int solveSudoku(int **matrix, int *numTentativas){
-    return(backTracking(matrix, 0, numTentativas));
+int solveSudoku(int **matrix, int *numTentativas, int ***solutionMatrix) {
+    createEmptyMatrix(solutionMatrix);
+
+    return(backTracking(matrix, 0, numTentativas, *solutionMatrix));
 }
 
 /**
@@ -107,9 +156,8 @@ int solveSudoku(int **matrix, int *numTentativas){
  * @param  numTentativas Número de tentativas
  * @return               1(sucesso) caso aquela tentativa seja bem sucedida e 0 caso aquela tentativa falhe
  */
-int backTracking(int **matrix, int index, int *numTentativas){
+int backTracking(int **matrix, int index, int *numTentativas, int **solutionMatrix) {
     (*numTentativas)++;
-    int tenta;
     //i e j recebem seus respectivos índices, sendo i a linha atual e j a coluna atual
     int i = index / TAM_SUDOKU;
     int j = index % TAM_SUDOKU;
@@ -119,22 +167,23 @@ int backTracking(int **matrix, int index, int *numTentativas){
     if(index > TAM_SUDOKU*TAM_SUDOKU)//Se estamos tentando para fora do tabuleiro(índice 82) certamente não estamos na solução
         return 0;
     //Devemos tentar apenas para espaços vazios
-    if(matrix[i][j] == 0){
-        for(tenta = 1; tenta <= 9; tenta++){
+    if(matrix[i][j] == 0) {
+        for(int tenta = 1; tenta <= 9; tenta++){
             if(canBeTry(matrix, i, j, tenta)){//Se parece uma tentativa válida
                     matrix[i][j] = tenta;//Grava a tentativa
-                    if(backTracking(matrix, index + 1, numTentativas))
-                        return 1;
-                    else //Se não deu certo, apaga os traços
-                        matrix[i][j] = 0;
+                    solutionMatrix[i][j] = tenta;
+
+                    if (backTracking(matrix, index + 1, numTentativas, solutionMatrix)) return 1;
+                    // Se não deu certo, apaga os traços
+                    matrix[i][j] = 0;
+                    solutionMatrix[i][j] = 0;
             }
         }
     }
     // Quando estamos em um número fixo devemos "ignorá-lo", chamar para o próximo índice e caso de certo retorne sucesso
-    else if(backTracking(matrix, index+1, numTentativas))
+    else if (backTracking(matrix, index+1, numTentativas, solutionMatrix))
         return 1;
-    else
-        return 0;
+
     return 0;
 }
 

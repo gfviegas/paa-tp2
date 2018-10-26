@@ -24,7 +24,8 @@ void _searchWord(char **matrix, int lines, int columns, int analysisMode) {
 
     // Após a execução, espera o usuário interagir, para dar tempo dele ver os resultados
     cprintf(RED, "\nDigite enter para continuar...");
-    return (getchar() && getchar());
+    getchar();
+    getchar();
 }
 
 // Limpa a tela e pede uma ação ao usuário: carregar um arquivo, buscar uma palavra ou voltar ao menu inicial

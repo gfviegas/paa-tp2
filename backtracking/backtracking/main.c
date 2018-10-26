@@ -17,6 +17,6 @@ int main(int argc, const char * argv[]) {
     //     printHeader(MODO_ANALISE);
     // else
     //     printHeader(MODO_NORMAL);
-    printHeader(MODO_NORMAL);
+    printHeader(MODO_ANALISE);
     return 0;
 }

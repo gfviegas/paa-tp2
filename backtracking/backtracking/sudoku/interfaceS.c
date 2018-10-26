@@ -82,12 +82,13 @@ void _printAllSudoku (int ***matrix) {
 
 // Resolve e exibe um sudokus
 void _showResultSudoku (int ***matrix, int analysisMode) {
+    int **solutionMatrix = NULL;
     int numTentativas = 0;
     int escolha;
     cprintf(MAGENTA, "\nExibindo o sudoku solucionado!\n");
     printLine();
-    solveSudoku(*matrix, &numTentativas);
-    printSudoku(*matrix);
+    solveSudoku(*matrix, &numTentativas, &solutionMatrix);
+    printSolutionSudoku(*matrix, solutionMatrix);
     printLine();
     if(analysisMode) {
         printLine();

@@ -56,7 +56,7 @@ void printMatrixLine(int size, int brBefore, int brAfter) {
 
 // Imprime uma matriz de caça-palavras ou solução, entre uma bonita borda
 void printMatrix(char ***matrix, int lines, int columns, char* header) {
-    int precision = ((columns * 3) / 2) + ((int) strlen(header) / 2);
+    int precision = ((columns * 1.5) + 2) + ((int) strlen(header) / 2);
 
     printMatrixLine(columns, 1, 1);
     cprintf(MAGENTA, "%*s", precision, header);
@@ -65,7 +65,7 @@ void printMatrix(char ***matrix, int lines, int columns, char* header) {
     for (int i = 0; i < lines; i++) {
         cprintf(BLUE, " | ");
         for (int j = 0; j < columns; j++)
-            cprintf(CYAN, " %c ", (*matrix)[i][j]);
+            (*matrix)[i][j] == '*' ? cprintf(CYAN, " %c ", (*matrix)[i][j]) : cprintf(YELLOW, " %c ", (*matrix)[i][j]);
         cprintf(BLUE, " |\n");
     }
 
