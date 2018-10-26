@@ -3,6 +3,7 @@
  * matrizes e strings de busca, utilizando do backtracking
  *
  * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ * @author Gustavo Viegas
  */
 
 #ifndef wordHunt_h
@@ -95,7 +96,7 @@ int checkMatch(char ***matrix, char query, int line, int column);
  * @param  occurrences  Ponteiro do inteiro representando quantas ocorrências da palavra foram encontradas
  * @return              Valor inteiro representando se a atual chamada tem uma ocorrência (>= 1) ou é sem-esperanças/não encontrada (0)
  */
-int backtracking(char ***matrix, int lines, int columns, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement, int* calls, int* occurrences);
+int wordHuntBacktracking(char ***matrix, int lines, int columns, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement, int* calls, int* occurrences);
 
 /**
  * Percorre a matriz procurando a primeira letra de uma palavra a ser encontrada e inicia o processo de backtracking para cada uma

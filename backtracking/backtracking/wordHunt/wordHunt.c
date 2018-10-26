@@ -3,6 +3,7 @@
  * matrizes e strings de busca, utilizando do backtracking
  *
  * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ * @author Gustavo Viegas
  */
 
 #include "wordHunt.h"
@@ -84,7 +85,7 @@ int checkMatch(char ***matrix, char query, int line, int column) {
   sem repetir direção ou ambiguidade de movimento. A função também conta a quantidade de ocorrências da palavra
   na matriz e quantas chamadas recursivas foram feitas.
   Se a palavra for encontrada no caça-palavras, ela é escrita na sua devida posição em uma matriz secundária (de resposta) */
-int backtracking(char ***matrix, int lines, int columns, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement, int* calls, int* occurrences) {
+int wordHuntBacktracking(char ***matrix, int lines, int columns, int lineIdx, int columnIdx, char* word, int wordIdx, int wordLen, char ***resultMatrix, Movements lastMovement, int* calls, int* occurrences) {
     int successCalls = 0;
     (*calls)++; // Incrementa a quantidade de chamadas recursivas
 
@@ -116,7 +117,7 @@ int backtracking(char ***matrix, int lines, int columns, int lineIdx, int column
         int nextColumn = (i == LEFT) ? columnIdx - 1 : (i == RIGHT) ? columnIdx + 1 : columnIdx;
 
         // Se ao fim da call stack houve um retorno verdadeiro, escreve na matriz de resultados na atual posição
-        if (backtracking(matrix, lines, columns, nextLine, nextColumn, word, wordIdx, wordLen, resultMatrix, i, calls, occurrences)) {
+        if (wordHuntBacktracking(matrix, lines, columns, nextLine, nextColumn, word, wordIdx, wordLen, resultMatrix, i, calls, occurrences)) {
             (*resultMatrix)[lineIdx][columnIdx] = query;
             successCalls++;
         }
@@ -139,7 +140,7 @@ void search(char ***matrix, char *word, int lines, int columns, int analysisMode
     for (int i = 0; i < lines; i++) {
         for (int j = 0; j < columns; j++) {
             if ((*matrix)[i][j] == word[0])
-                backtracking(matrix, lines, columns, i, j, word, 0, wordLen, &resultMatrix, NONE, &calls, &results);
+                wordHuntBacktracking(matrix, lines, columns, i, j, word, 0, wordLen, &resultMatrix, NONE, &calls, &results);
         }
     }
 

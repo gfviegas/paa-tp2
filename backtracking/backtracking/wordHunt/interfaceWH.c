@@ -3,6 +3,7 @@
  * os dados necessários
  *
  * Gustavo Viegas (3026) e Heitor Passeado (3055)
+ * @author Gustavo Viegas
  */
 
 #include "interfaceWH.h"
