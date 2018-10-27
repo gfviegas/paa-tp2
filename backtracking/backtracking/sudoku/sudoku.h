@@ -14,9 +14,7 @@
 
 // Número de linhas/colunas do sudoku
 #define TAM_SUDOKU 9
-// Nao sei
-#define SUM_CHECK 45
-// Nao sei
+//  para traduzir um char para inteiro, utilizado na leitura de caracteres para construir um sudoku dinamicamente
 #define CONVERSOR_ASCII 48
 
 /**
@@ -80,10 +78,11 @@ int solveSudoku(int **matrix, int *calls, int ***solutionMatrix);
 
 /**
  * Função recursiva que resolve o sudoku por backTracking
- * @param  matrix        Matriz que contém o sudoku
- * @param  index         Índice unidemensional da matriz
- * @param  calls         Número de tentativas
- * @return               1(sucesso) caso aquela tentativa seja bem sucedida e 0 caso aquela tentativa falhe
+ * @param  matrix           Matriz que contém o sudoku
+ * @param  index            Índice unidemensional da matriz
+ * @param  calls            Número de tentativas
+ * @param  solutionMatrix   Matriz que contém somente os caracteres escritos pelo backtracking
+ * @return                  1 (sucesso) caso aquela tentativa seja bem sucedida e 0 caso aquela tentativa falhe
  */
 int sudokuBacktracking(int **matrix, int index, int *emptySpots, int *calls, int **solutionMatrix);
 

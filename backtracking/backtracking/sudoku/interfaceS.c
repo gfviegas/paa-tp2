@@ -76,13 +76,16 @@ void _showResultSudoku (int ***matrix, int analysisMode) {
     int **solutionMatrix = NULL;
     int calls = 0;
     int choice;
-    if(!solveSudoku(*matrix, &calls, &solutionMatrix)) {
+
+    if (!solveSudoku(*matrix, &calls, &solutionMatrix)) {
         cprintf(RED, "Sudoku não possui solução!");
         return _sudokuMenu(analysisMode);
     }
+
     cprintf(MAGENTA, "\nExibindo o sudoku solucionado!\n");
     printLine();
     solveSudoku(*matrix, &calls, &solutionMatrix);
+    printSudoku(solutionMatrix);
     printSolutionSudoku(*matrix, solutionMatrix);
     printLine();
 

@@ -54,6 +54,7 @@ void printSolutionSudoku(int **matrix, int **solutionMatrix) {
             color = RED;
             currentValue = solutionMatrix[i][j];
 
+            // cprintf(CYAN, "\nSOLUTION -> %d. NORMAL -> %d\n", solutionMatrix[i][j], matrix[i][j]);
             if (j % 3 == 0) cprintf(CYAN, "| ");
 
             if (currentValue == 0) {
@@ -73,7 +74,7 @@ void printSolutionSudoku(int **matrix, int **solutionMatrix) {
     printf("\n");
 }
 
-// Com um caminho para o arquivo, carrega uma matriz com o sudoku( 0 é igual a espaço vazio)
+// Com um caminho para o arquivo, carrega uma matriz com o sudoku (0 é igual a espaço vazio)
 void loadSudoku(int ***matrix, char* filePath) {
     if (*matrix != NULL) free(*matrix);
     allocMatrixSudoku(matrix);
@@ -102,7 +103,7 @@ void allocMatrixSudoku(int ***matrix) {
 
 // Cria uma matriz do tamanho do sudoku com todos os registros zerado
 void createEmptyMatrix(int ***matrix) {
-    if (*matrix != NULL) free(matrix);
+    if (*matrix != NULL) free(*matrix);
     allocMatrixSudoku(matrix);
 
     for (int i = 0; i < TAM_SUDOKU; i++)
@@ -126,15 +127,6 @@ void readSudoku(int ***matrix) {
     }
 }
 
-// Verifica se a matriz possui algum 0, pois siginifica que todos os espaços já foram preenchidos e consequentemente
-// o sudoku está resolvido visto que é garantidamente uma posição válida
-int isSudokuResolvido(int **matrix) {
-    for (int i = 0; i < TAM_SUDOKU; i++)
-        for (int j = 0; j < TAM_SUDOKU; j++)
-            if (matrix[i][j] == 0) return 0;
-    return 1;
-}
-
 // Conta a quantidade de 0s, ou elementos a serem escritos, na matriz
 int countEmptySpots(int **matrix) {
     int amount = 0;
@@ -151,7 +143,7 @@ int solveSudoku(int **matrix, int *calls, int ***solutionMatrix) {
     int emptySpots = countEmptySpots(matrix);
     createEmptyMatrix(solutionMatrix);
 
-    return(sudokuBacktracking(matrix, 0, &emptySpots, calls, *solutionMatrix));
+    return (sudokuBacktracking(matrix, 0, &emptySpots, calls, *solutionMatrix));
 }
 
 // Função recursiva que resolve o sudoku por sudokuBacktracking
