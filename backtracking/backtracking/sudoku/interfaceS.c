@@ -84,8 +84,6 @@ void _showResultSudoku (int ***matrix, int analysisMode) {
 
     cprintf(MAGENTA, "\nExibindo o sudoku solucionado!\n");
     printLine();
-    solveSudoku(*matrix, &calls, &solutionMatrix);
-    printSudoku(solutionMatrix);
     printSolutionSudoku(*matrix, solutionMatrix);
     printLine();
 
